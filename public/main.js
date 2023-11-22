@@ -1,9 +1,23 @@
 window.addEventListener("DOMContentLoaded", main);
 
-const MONTH_NAMES = Array.from({ length: 12 }, (_, i) => {
-  return new Date(0, i).toLocaleString("en-US", { month: "long" });
-});
-console.log(MONTH_NAMES);
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const date = new Date();
+const monthNow = date.getMonth();
+console.log(monthNames[monthNow]);
 
 function main() {
   console.log("Hi students!");
@@ -23,8 +37,9 @@ function main() {
     calendar.append(dayCard);
   }
 
-  const month = document.querySelector(".month");
+  const monthContainer = document.querySelector(".month");
   const monthElement = document.createElement("h1");
   monthElement.classList.add("month");
-  
+  monthElement.textContent = `${monthNames[monthNow]}`;
+  monthContainer.append(monthElement);
 }

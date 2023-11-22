@@ -28,3 +28,14 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 4fr));
 }
+
+i {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.flex {
+    gap: 1rem;
+    display: flex;
+    align-items: center;
+}
