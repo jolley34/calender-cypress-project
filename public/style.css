@@ -28,3 +28,27 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 4fr));
 }
+
+main {
+    display: flex;
+}
+
+header {
+    background: black;
+    font-size: xx-large;
+    text-align: center;
+    padding: 2rem;
+    
+}
+aside {
+    background: gray;
+    display:flex;
+    margin: 2rem;
+    border-radius: 5px;
+    width: 20rem;
+    justify-content: center;
+    text-align: center;
+}
+.myDay {
+    padding: 20px;
+}
