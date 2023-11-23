@@ -27,8 +27,10 @@
           <input type="text" id="new-todo" placeholder="Add new todo">
           <input type="date" id="todo-date">
           <input type="time" id="todo-time">
-          <button id="add-todo-btn">Add Todo</button>
-          <ul id="todo-list"></ul>
+            <button onclick="addTodo()">Add Todo</button>
+            <button onclick="closeModal()">Close</button>
+        
+          <ul id="todoList"></ul>
         </div>
         <div id="edit-modal">
           <h3>Edit Todo</h3>
