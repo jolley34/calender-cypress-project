@@ -17,6 +17,7 @@ body {
 }
 
 .calendar-container {
+    flex: 3;
     padding: 2rem;
     border-radius: 10px;
     background-color: rgb(60, 60, 60);
@@ -41,6 +42,7 @@ header {
     
 }
 aside {
+    flex: 1;
     background: gray;
     margin: 2rem;
     border-radius: 10px;
@@ -57,28 +59,53 @@ aside {
     justify-content: space-between;
     
 }
-#new-todo{
+#new-todo, #edit-todo-text{
     width: 80%;
     padding: 0.5rem;
     margin: 0.5rem;
 }
-#todo-date{
+#todo-date, #edit-todo-date{
     width: 40%;
     padding: 0.5rem;
     margin: 0.5rem;
 
 }
-#todo-time{
+#todo-time, #edit-todo-time{
     width: 25%;
     padding: 0.5rem;
     margin: 0.5rem;
 
 }
-#add-todo-btn{
+#add-todo-btn {
     padding: 0.5rem;
     margin: 0.5rem;
-    
+    cursor: pointer;
 }
+
 #todo-list{
     padding: 20px;
 }
+
+.todo-item button {/* class made in JS-todo */
+    cursor: pointer;
+
+}
+#edit-modal {
+    width: 20rem;
+    display: none;
+    position: fixed;
+    top: 60%;
+    left: 12%;
+    transform: translate(-50%, -50%);
+    padding:20px;
+    background-color: grey;
+    border: 2px solid black;
+    z-index: 100;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+#save-edit-btn, #close-edit-btn{
+    padding: 0.5rem;
+    width: 5rem;
+}
+
+
