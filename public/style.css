@@ -42,13 +42,43 @@ header {
 }
 aside {
     background: gray;
-    display:flex;
     margin: 2rem;
-    border-radius: 5px;
+    border-radius: 10px;
     width: 20rem;
     justify-content: center;
     text-align: center;
+    box-shadow: 1px 3px 3px black;
 }
 .myDay {
+    padding: 20px;
+    font-size: x-large;
+}
+#todo-container{
+    justify-content: space-between;
+    
+}
+#new-todo{
+    width: 80%;
+    padding: 0.5rem;
+    margin: 0.5rem;
+}
+#todo-date{
+    width: 40%;
+    padding: 0.5rem;
+    margin: 0.5rem;
+
+}
+#todo-time{
+    width: 25%;
+    padding: 0.5rem;
+    margin: 0.5rem;
+
+}
+#add-todo-btn{
+    padding: 0.5rem;
+    margin: 0.5rem;
+    
+}
+#todo-list{
     padding: 20px;
 }
