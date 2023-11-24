@@ -1,7 +1,7 @@
 window.addEventListener("DOMContentLoaded", main)
 
 function main(){
-   // toDaysDay();
+   //toDaysDay();
     //toDaysDate();
    // toDaysMonth();
    updateDate();
@@ -20,5 +20,8 @@ function updateDate(){
     document.getElementById('asideDay').textContent = dayOfWeek;
     document.getElementById('asideDate').textContent = date;
     document.getElementById('asideMonth').textContent = month;
+    document.getElementById('todaysMonthDate').textContent = month + ' ' + date;
+    document.getElementById('todaysDay').textContent = dayOfWeek;
+
 
 }

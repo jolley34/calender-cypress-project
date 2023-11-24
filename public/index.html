@@ -13,7 +13,7 @@
 
   </head>
   <body>
-    <header> Calendar-header </header>
+    <header><h1 id="todaysMonthDate"><!-- JS --></h1> <h2 id="todaysDay"><!-- JS--> </h2></header>
     <main>
       <aside>
         <div class="myDay">
@@ -24,13 +24,17 @@
         </div>
         <div id="todo-container">
           <h3 id="toDo"></h3>
+          <label for="new-todo">Add todo:</label>
           <input type="text" id="new-todo" placeholder="Add new todo">
+          <label for="todo-date">Date:</label>
           <input type="date" id="todo-date">
+          <label for="todo-time">Start-time</label>
           <input type="time" id="todo-time">
-            <button onclick="addTodo()">Add Todo</button>
-            <button onclick="closeModal()">Close</button>
+          <label for="todo-end-time">End-time</label>
+          <input type="time" id="todo-end-time">
+          <button id="add-todo-btn">Add Todo</button>
         
-          <ul id="todoList"></ul>
+          <ul id="todo-list"></ul>
         </div>
         <div id="edit-modal">
           <h3>Edit Todo</h3>
