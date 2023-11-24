@@ -37,27 +37,48 @@ main {
 header {
     background: black;
     font-size: xx-large;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
     padding: 2rem;
-    
 }
+
 aside {
     flex: 1;
     background: gray;
     margin: 2rem;
     border-radius: 10px;
     width: 20rem;
-    justify-content: center;
-    text-align: center;
     box-shadow: 1px 3px 3px black;
 }
 .myDay {
+    justify-content: center;
+    text-align: center;
     padding: 20px;
     font-size: x-large;
 }
 #todo-container{
-    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    margin-left: 0.5rem;
     
+}
+.todo-Item{
+    border: 1px solid;
+    border-radius: 3px;
+    margin: 3px;
+    background: rgb(100, 99, 99);
+    box-shadow: 1 1 1 10px black;
+    cursor: pointer;
+    padding-left: 4px;
+}
+
+.todo-Item:hover{
+    background-color: greenyellow;
+    color: black;
+
+}
+#todo-list{
+    list-style: none;
 }
 #new-todo, #edit-todo-text{
     width: 80%;
@@ -70,7 +91,7 @@ aside {
     margin: 0.5rem;
 
 }
-#todo-time, #edit-todo-time{
+#todo-time, #todo-end-time, #edit-todo-time{
     width: 25%;
     padding: 0.5rem;
     margin: 0.5rem;
