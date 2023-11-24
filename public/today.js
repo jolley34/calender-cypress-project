@@ -4,9 +4,23 @@ function main(){
    //toDaysDay();
     //toDaysDate();
    // toDaysMonth();
+   updateClock();
    updateDate();
 
 }
+
+function updateClock() {
+    const now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+   
+    // Lägg till en nolla framför minuterna om det är mindre än 10
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+   
+    const timeElement = document.getElementById("clock");
+    timeElement.textContent = `${hours}:${minutes}`;
+}
+
 
 function updateDate(){
     const daysOfWeek = ['Sundays', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];

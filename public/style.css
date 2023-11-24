@@ -51,10 +51,14 @@ aside {
     box-shadow: 1px 3px 3px black;
 }
 .myDay {
+   
     justify-content: center;
     text-align: center;
     padding: 20px;
     font-size: x-large;
+}
+#clock{
+    font-size: 50px;
 }
 #todo-container{
     display: flex;
