@@ -2,7 +2,15 @@ window.addEventListener("DOMContentLoaded", main)
 
 function main (){
     addTodo();
+    
 }
+
+
+
+ 
+ 
+updateClock();
+  setInterval(updateClock, 60000);
 
 function addTodo(){
     //add todo form
