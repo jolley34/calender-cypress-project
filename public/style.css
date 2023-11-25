@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;900&display=swap');
 
-
 * {
     margin: 0;
     padding: 0;
@@ -9,24 +8,31 @@
 body {
     font-family: 'Poppins', sans-serif;
     color: white;
+    width: 100vw;
+    height: 100vh;
+}
+
+h1 {
+    font-size: 1rem;
 }
 
 .day-card {
+    padding: 1rem;
     border-radius: 5px;
     background-color: rgb(38, 38, 38);
+    cursor: pointer;
 }
 
 .calendar-container {
     padding: 2rem;
     border-radius: 10px;
     background-color: rgb(60, 60, 60);
-    margin: 2rem;
 }
 
 .app-calendar {
     gap: 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 4fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 4fr));
 }
 
 i {
