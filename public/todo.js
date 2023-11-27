@@ -2,15 +2,10 @@ window.addEventListener("DOMContentLoaded", main)
 
 function main (){
     addTodo();
+    loadTodos();
     
 }
 
-
-
- 
- 
-updateClock();
-  setInterval(updateClock, 60000);
 
 function addTodo(){
     //add todo form
@@ -40,6 +35,7 @@ function addTodo(){
             const todoItem = document.createElement("li");
             todoItem.className = "todo-Item";
             todoItem.textContent = `${todoText} - Time: ${todoTime} - ${todoEndTime} , ${todoDate}`;
+
             todolist.appendChild(todoItem);
 
             //clears input after click on add-button
@@ -47,16 +43,39 @@ function addTodo(){
             todoTimeInput.value = "";
             todoDateInput.value = "";
 
-            todoItem.addEventListener('click', function(){
-
-                todoText.value = todoText;
-                todoTime.value = todoTime;
-                todoDate.value = todoDate;
-
-                
-            });
+           
+            saveTodosToLocalStorage()
         }
     });
+}
+todoItem.addEventListener('click', function(){
+
+    const editModal = document.createElement('div');
+    editModal
+
+    todoText.value = todoText;
+    todoTime.value = todoTime;
+    todoDate.value = todoDate;
+
+    console.log("todo-Item");
+    
+    
+});
+
+    function saveTodosToLocalStorage() {
+        const todoList = document.getElementById("todo-list").innerHTML;
+        localStorage.setItem("todos", todoList);
+    }
+    
+    function loadTodos() {
+        const savedTodos = localStorage.getItem("todos");
+        if (savedTodos) {
+            document.getElementById("todo-list").innerHTML = savedTodos;
+        }
+    }
+
+
+
     /*
     editModal.style.display = "block";
     saveEditBtn.addEventListener('click', function (){
@@ -81,4 +100,3 @@ function addTodo(){
         editModal.style.display = "none";
     });
     */
-}
