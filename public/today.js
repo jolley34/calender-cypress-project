@@ -4,8 +4,8 @@ function main(){
    //toDaysDay();
     //toDaysDate();
    // toDaysMonth();
-   updateClock();
    updateDate();
+   updateClock();
 
 }
 
@@ -20,6 +20,9 @@ function updateClock() {
     const timeElement = document.getElementById("clock");
     timeElement.textContent = `${hours}:${minutes}`;
 }
+    //updateClock();
+    setInterval(updateClock, 60000);
+
 
 
 function updateDate(){

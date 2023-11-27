@@ -66,6 +66,9 @@ aside {
     margin-left: 0.5rem;
     
 }
+#toDo {
+    padding-left: 1rem;
+}
 .todo-Item{
     border: 1px solid;
     border-radius: 3px;
@@ -81,9 +84,11 @@ aside {
     color: black;
 
 }
+
 #todo-list{
     list-style: none;
 }
+
 #new-todo, #edit-todo-text{
     width: 80%;
     padding: 0.5rem;
