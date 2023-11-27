@@ -5,12 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+
     <link rel="stylesheet" href="style.css" />
     <script src="main.js"></script>
+    <script src="today.js"></script>
+    <script src="todo.js"></script>
+
   </head>
   <body>
-    <header></header>
+    <header><h1 id="todaysMonthDate"><!-- JS --></h1> <h2 id="todaysDay"><!-- JS--> </h2></header>
     <main>
+      <aside>
+        <div class="myDay">
+          <h3 id="asideDay"> <!-- JS ---> </h3>
+          <h1 id="asideDate"> <!-- JS ---> </h1>
+          <h3 id="asideMonth"><!---JS ---> </h3>
+          <span id="clock"><!--JS--></span>
+          <hr>
+        </div>
+        <h3 id="toDo">Todo:</h3>
+        <ul id="todo-list"><!-- list object inserted by inputs and saved by JS--></ul>
+        <div id="todo-container">
+          <label for="new-todo">Add todo:</label>
+          <input type="text" id="new-todo" placeholder="Add new todo">
+          <label for="todo-date">Date:</label>
+          <input type="date" id="todo-date">
+          <label for="todo-time">Start-time</label>
+          <input type="time" id="todo-time">
+          <label for="todo-end-time">End-time</label>
+          <input type="time" id="todo-end-time">
+          <button id="add-todo-btn">Add Todo</button>
+          
+        </div>
+        <div id="edit-modal">
+          <h3>Edit Todo</h3>
+          <input type="text" id="edit-todo-text">
+            <input type="date" id="edit-todo-date">
+            <input type="time" id="edit-todo-time">
+            <button id="save-edit-btn">Save</button>
+            <button id="close-edit-btn">Close</button>
+        </div>
+      </aside>
       <div class="calendar-container">
         <h1>Our Calendar</h1>
         <div class="app-calendar"></div>
