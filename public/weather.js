@@ -97,3 +97,31 @@ window.addEventListener("DOMContentLoaded", () => {
     createParticles();
   });
 });
+
+
+ async function fetchWeather() {
+  const apiKey = '04cefb85cb8ecd887ad8e9600dddc436';
+  const location = 'gothenburg'; 
+
+  try {
+    const response = await fetch(`http://api.weatherstack.com/current?access_key=${apiKey}&query=${location}`);
+    const data = await response.json();
+
+    if (data.error) {
+      throw new Error(data.error.info);
+    }
+
+    const weatherDescription = data.current.weather_descriptions[0];
+    const temperatureCelsius = data.current.temperature;
+
+    const weatherText = `${weatherDescription} ${temperatureCelsius}°C`;
+    const locationWeather = document.querySelector('.location-weather');
+    locationWeather.textContent = weatherText;
+  } catch (error) {
+    console.error('Error fetching weather data:', error.message);
+    const locationWeather = document.querySelector('.location-weather');
+    locationWeather.textContent = 'Failed to fetch weather';
+  }
+}
+
+window.onload = fetchWeather;

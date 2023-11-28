@@ -45,20 +45,29 @@ header {
 
 .flex {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 1rem;
+}
+
+nav {
+    padding-inline: 2rem;
 }
 
 ul {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding-inline: 2rem;
 }
 
 li {
     z-index: 1000;
   list-style: none;
   cursor: pointer;
+}
+
+p {
+    color: #7b7b7b;
 }
 
 i {
