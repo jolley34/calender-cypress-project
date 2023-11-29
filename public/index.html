@@ -50,9 +50,26 @@
               <table class="calendar-table" id="calendar-table"></table>
             </div>
           </div>
+          <div class="right">
+            <div id="dayAndDate"></div>
+            <h3 id="toDo">Todo:</h3>
+            <ul id="todo-list">
+              <!-- list object inserted by inputs and saved by JS-->
+            </ul>
+            <div id="todo-container">
+              <label for="new-todo">Add todo:</label>
+              <input type="text" id="new-todo" placeholder="Add new todo" />
+              <label for="todo-date">Date:</label>
+              <input type="date" id="todo-date" />
+              <label for="todo-time">Start-time</label>
+              <input type="time" id="todo-time" />
+              <label for="todo-end-time">End-time</label>
+              <input type="time" id="todo-end-time" />
+              <button id="addTodoItem">+</button>
+            </div>
+          </div>
         </div>
         <!-- Högra delen dvs todo och event delen -->
-        <div class="right"></div>
       </aside>
     </main>
     <script src="main.js"></script>

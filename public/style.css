@@ -123,3 +123,27 @@ h2 {
     color: rgb(64, 64, 64);
     font-weight: 500;
 }
+
+#addTodoItem{
+  right: 30rem;
+  background-color: #747373;
+  border-radius: 50px;
+  padding: 10px;
+  width: 3rem;
+  color: white;
+  cursor: pointer;
+}
+#dayAndDate {
+  font-size: large;
+  font-weight: 700;
+}
+#todo-list{
+  list-style: none;
+
+}
+#todo-container{
+  display: flex;
+  flex-direction: column;
+  margin-left: 0.5rem;
+  
+}

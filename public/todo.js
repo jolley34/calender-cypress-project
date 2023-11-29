@@ -14,7 +14,7 @@ function addTodo(){
     const todoDateInput = document.getElementById("todo-date")
     const todoTimeInput = document.getElementById("todo-time")
     const todoEndTimeInput = document.getElementById('todo-end-time')
-    const addTodoBtn = document.getElementById("add-todo-btn")
+    const addTodoBtn = document.getElementById("addTodoItem")
 
 
     // adds the todos to list when add-button is clicked
@@ -26,8 +26,8 @@ function addTodo(){
 
         if (todoText !== " ") {
             const todoItem = document.createElement("li");
-            todoItem.className = "todo-Item";
-            todoItem.textContent = `${todoText} - Time: ${todoTime} - ${todoEndTime} , ${todoDate}`;
+            todoItem.className = "todoItem";
+            todoItem.innerHTML = `${todoText}- <br> at: ${todoTime} - ${todoEndTime} , ${todoDate}`;
 
             todolist.appendChild(todoItem);
 
