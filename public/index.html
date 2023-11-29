@@ -14,60 +14,51 @@
     />
     <title>Our Calendar</title>
     <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <canvas class="weather"></canvas>
+    <header>
+      <h1 id="todaysMonthDate"><!-- JS --></h1>
+      <div class="flex">
+        <h2 id="todaysDay"><!-- JS--></h2>
+        <span id="clock"></span>
+      </div>
+    </header>
+    <nav>
+      <div class="flex">
+        <ul>
+          <li>Today</li>
+          <li>This week</li>
+          <li>This month</li>
+        </ul>
+        <!-- Ska visa din plats väder Här -->
+        <p class="location-weather">Loading weather...</p>
+      </div>
+    </nav>
+
+    <main>
+      <aside>
+        <div class="container">
+          <!-- Vänstra delen dvs kalender dagar osv. -->
+          <div class="left">
+            <div class="calendar">
+              <div class="month">
+                <i class="fas fa-angle-left prev"></i>
+                <div class="date"></div>
+                <i class="fas fa-angle-right next"></i>
+              </div>
+              <div class="weekdays"></div>
+              <div class="days"></div>
+            </div>
+          </div>
+          <!-- Högra delen dvs todo och event delen -->
+          <div class="right"></div>
+        </div>
+      </aside>
+    </main>
     <script src="main.js"></script>
     <script src="today.js"></script>
     <script src="todo.js"></script>
-  </head>
-  <body>
-    <header>
-      <h1 id="todaysMonthDate"><!-- JS --></h1>
-      <h2 id="todaysDay"><!-- JS--></h2>
-    </header>
-    <main>
-      <aside>
-        <div class="myDay">
-          <h3 id="asideDay"><!-- JS ---></h3>
-          <h1 id="asideDate"><!-- JS ---></h1>
-          <h3 id="asideMonth"><!---JS ---></h3>
-          <span id="clock"><!--JS--></span>
-          <hr />
-        </div>
-        <h3 id="toDo">Todo:</h3>
-        <ul id="todo-list">
-          <!-- list object inserted by inputs and saved by JS-->
-        </ul>
-        <div id="todo-container">
-          <label for="new-todo">Add todo:</label>
-          <input type="text" id="new-todo" placeholder="Add new todo" />
-          <label for="todo-date">Date:</label>
-          <input type="date" id="todo-date" />
-          <label for="todo-time">Start-time</label>
-          <input type="time" id="todo-time" />
-          <label for="todo-end-time">End-time</label>
-          <input type="time" id="todo-end-time" />
-          <button id="add-todo-btn">Add Todo</button>
-        </div>
-        <div id="edit-modal">
-          <h3>Edit Todo</h3>
-          <input type="text" id="edit-todo-text" />
-          <input type="date" id="edit-todo-date" />
-          <input type="time" id="edit-todo-time" />
-          <button id="save-edit-btn">Save</button>
-          <button id="close-edit-btn">Close</button>
-        </div>
-      </aside>
-      <div class="calendar-container">
-        <div class="flex">
-          <div class="prev-month">
-            <i class="fa-solid fa-chevron-left"></i>
-          </div>
-          <h1 class="month"></h1>
-          <div class="next-month">
-            <i class="fa-solid fa-chevron-right"></i>
-          </div>
-        </div>
-        <div class="app-calendar"></div>
-      </div>
-    </main>
+    <script src="weather.js"></script>
   </body>
 </html>

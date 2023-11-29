@@ -21,7 +21,7 @@ function updateClock() {
     timeElement.textContent = `${hours}:${minutes}`;
 }
     //updateClock();
-    setInterval(updateClock, 60000);
+    setInterval(updateClock, 1000);
 
 
 
@@ -34,9 +34,9 @@ function updateDate(){
     const date = today.getDate();
     const month = months[today.getMonth()];
 
-    document.getElementById('asideDay').textContent = dayOfWeek;
+  /*   document.getElementById('asideDay').textContent = dayOfWeek;
     document.getElementById('asideDate').textContent = date;
-    document.getElementById('asideMonth').textContent = month;
+    document.getElementById('asideMonth').textContent = month; */
     document.getElementById('todaysMonthDate').textContent = month + ' ' + date;
     document.getElementById('todaysDay').textContent = dayOfWeek;
 

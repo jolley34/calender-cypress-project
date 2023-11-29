@@ -1,68 +1,50 @@
-window.addEventListener("DOMContentLoaded", main);
-
-const monthNames = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
-const dayNames = [
-  "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
-];
-
-let currentMonthIndex = new Date().getMonth();
-
 function main() {
-  updateCalendarDays();
+  const calendar = document.querySelector(".calendar"),
+    date = document.querySelector(".date"),
+    prev = document.querySelector(".prev"),
+    next = document.querySelector(".next"),
+    daysContainer = document.querySelector(".days"),
+    weekdaysContainer = document.querySelector(".weekdays");
 
-  const monthElement = document.querySelector(".month");
-  monthElement.textContent = `${monthNames[currentMonthIndex]}`;
+  let today = new Date();
+  let activeDay;
+  let month = today.getMonth();
+  let year = today.getFullYear();
 
-  const prevMonthIcon = document.querySelector(".prev-month");
-  const nextMonthIcon = document.querySelector(".next-month");
+  const monthsArray = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
-  prevMonthIcon.addEventListener("click", showPreviousMonth);
-  nextMonthIcon.addEventListener("click", showNextMonth);
-}
+  // Veckodagar append till diven "weekdays"
+  const weekdaysArray = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
 
-function updateCalendarDays() {
-  const calendar = document.querySelector(".app-calendar");
-  calendar.innerHTML = "";
+  function displayWeekdays(weekdaysArray) {
+    weekdaysContainer.innerHTML = "";
 
-  const daysInMonth = new Date(
-    new Date().getFullYear(),
-    currentMonthIndex + 1,
-    0
-  ).getDate();
+    weekdaysArray.forEach(weekday => {
+      const weekdayCard = document.createElement('div');
+      weekdayCard.classList.add('weekday-card'); 
 
-  for (let day = 1; day <= daysInMonth; day++) {
-    const currentDate = new Date(new Date().getFullYear(), currentMonthIndex, day);
-    const dayCard = document.createElement("div");
-    dayCard.classList.add("day-card");
+      const weekdayNames = document.createElement('h2');
+      weekdayNames.textContent = weekday; 
 
-    const dayNumber = document.createElement("h1");
-    dayNumber.textContent = `${day}`;
-    dayCard.appendChild(dayNumber);
-
-    const dayOfWeek = document.createElement("h1");
-    dayOfWeek.textContent = `${dayNames[currentDate.getDay()]}`;
-    dayCard.appendChild(dayOfWeek);
-
-    calendar.append(dayCard);
+      weekdayCard.append(weekdayNames);
+      weekdaysContainer.append(weekdayCard); 
+    });
   }
+
+  displayWeekdays(weekdaysArray);
 }
 
-function showPreviousMonth() {
-  currentMonthIndex = (currentMonthIndex - 1 + 12) % 12;
-  updateDisplayedMonth();
-  updateCalendarDays();
-}
-
-function showNextMonth() {
-  currentMonthIndex = (currentMonthIndex + 1) % 12;
-  updateDisplayedMonth();
-  updateCalendarDays();
-}
-
-function updateDisplayedMonth() {
-  const monthElement = document.querySelector(".month");
-  monthElement.textContent = `${monthNames[currentMonthIndex]}`;
-}
+window.addEventListener("DOMContentLoaded", main);
