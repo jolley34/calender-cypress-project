@@ -38,27 +38,27 @@
 
     <main>
       <aside>
-        <div class="container">
+        <div class="container" id="container">
           <!-- Vänstra delen dvs kalender dagar osv. -->
           <div class="left">
-            <div class="calendar">
-              <div class="month">
-                <i class="fas fa-angle-left prev"></i>
-                <div class="date"></div>
-                <i class="fas fa-angle-right next"></i>
+            <div class="calendar" id="calendar">
+              <div id="calendarheader">
+                <button class="prev-month" id="prev-month">&lt;</button>
+                <h1 class="month-year" id="month-year"></h1>
+                <button class="next-month" id="next-month">&gt;</button>
               </div>
-              <div class="weekdays"></div>
-              <div class="days"></div>
+              <table class="calendar-table" id="calendar-table"></table>
             </div>
           </div>
-          <!-- Högra delen dvs todo och event delen -->
-          <div class="right"></div>
         </div>
+        <!-- Högra delen dvs todo och event delen -->
+        <div class="right"></div>
       </aside>
     </main>
     <script src="main.js"></script>
     <script src="today.js"></script>
     <script src="todo.js"></script>
     <script src="weather.js"></script>
+    <script src="calendar.js"></script>
   </body>
 </html>

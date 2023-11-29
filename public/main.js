@@ -1,4 +1,4 @@
-function main() {
+/*function main() {
   const calendar = document.querySelector(".calendar"),
     date = document.querySelector(".date"),
     prev = document.querySelector(".prev"),
@@ -48,3 +48,4 @@ function main() {
 }
 
 window.addEventListener("DOMContentLoaded", main);
+*/
