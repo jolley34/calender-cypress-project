@@ -1,13 +1,12 @@
 window.addEventListener("DOMContentLoaded", () => {
   const canvas = document.querySelector(".weather");
   const ctx = canvas.getContext("2d");
-  const weatherSelector = document.getElementById("weatherSelector");
 
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
   let particles = [];
-  let weatherType = 'snow'; 
+  let weatherType = 'none'; // Default to 'none'
 
   function createParticlesForSnow() {
     const particleCount = 300;
@@ -37,11 +36,11 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function createParticles() {
+  function createParticles(weather) {
     particles = [];
-    if (weatherType === 'snow') {
+    if (weather === 'snow') {
       createParticlesForSnow();
-    } else {
+    } else if (weather === 'rain') {
       createParticlesForRain();
     }
   }
@@ -54,7 +53,7 @@ window.addEventListener("DOMContentLoaded", () => {
           particle.y = 0;
           particle.x = Math.random() * canvas.width;
         }
-      } else { 
+      } else {
         particle.x += Math.sin(particle.direction);
         if (particle.y > canvas.height || particle.x > canvas.width || particle.x < 0) {
           particle.y = 0;
@@ -83,45 +82,48 @@ window.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(animateWeather);
   }
 
-  createParticles();
   animateWeather();
 
   window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    createParticles();
+    createParticles(weatherType);
   });
 
-  weatherSelector.addEventListener("change", (event) => {
-    weatherType = event.target.value;
-    createParticles();
-  });
-});
+  async function fetchWeather() {
+    const apiKey = '04cefb85cb8ecd887ad8e9600dddc436';
+    const location = 'gothenburg';
 
+    try {
+      const response = await fetch(`http://api.weatherstack.com/current?access_key=${apiKey}&query=${location}`);
+      const data = await response.json();
 
- async function fetchWeather() {
-  const apiKey = '04cefb85cb8ecd887ad8e9600dddc436';
-  const location = 'gothenburg'; 
+      if (data.error) {
+        throw new Error(data.error.info);
+      }
 
-  try {
-    const response = await fetch(`http://api.weatherstack.com/current?access_key=${apiKey}&query=${location}`);
-    const data = await response.json();
+      const weatherDescription = data.current.weather_descriptions[0].toLowerCase();
 
-    if (data.error) {
-      throw new Error(data.error.info);
+      if (weatherDescription.includes('snow')) {
+        weatherType = 'snow';
+      } else if (weatherDescription.includes('rain')) {
+        weatherType = 'rain';
+      } else {
+        weatherType = 'none';
+      }
+
+      createParticles(weatherType);
+
+      const temperatureCelsius = data.current.temperature;
+      const weatherText = `${weatherDescription} ${temperatureCelsius}°C`;
+      const locationWeather = document.querySelector('.location-weather');
+      locationWeather.textContent = weatherText;
+    } catch (error) {
+      console.error('Error fetching weather data:', error.message);
+      const locationWeather = document.querySelector('.location-weather');
+      locationWeather.textContent = 'Failed to fetch weather';
     }
-
-    const weatherDescription = data.current.weather_descriptions[0];
-    const temperatureCelsius = data.current.temperature;
-
-    const weatherText = `${weatherDescription} ${temperatureCelsius}°C`;
-    const locationWeather = document.querySelector('.location-weather');
-    locationWeather.textContent = weatherText;
-  } catch (error) {
-    console.error('Error fetching weather data:', error.message);
-    const locationWeather = document.querySelector('.location-weather');
-    locationWeather.textContent = 'Failed to fetch weather';
   }
-}
 
-window.onload = fetchWeather;
+  window.onload = fetchWeather;
+});
