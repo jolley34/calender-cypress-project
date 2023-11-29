@@ -32,6 +32,7 @@ header {
   font-size: 1.5rem;
 }
 
+
 .container {
   position: relative;
   width: 1200px;
@@ -45,6 +46,7 @@ header {
 
 .flex {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
@@ -110,4 +112,15 @@ canvas {
 #weatherSelector {
     position: relative;
     z-index: 100;
+}
+
+.weekdays {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+h2 {
+    color: rgb(64, 64, 64);
+    font-weight: 500;
 }
