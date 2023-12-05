@@ -95,7 +95,12 @@ header {
 .cursor-pointer {
   cursor: pointer;
 }
-.calendar {
+
+.calendar,
+.calendar .add-event-day,
+.calendar .calendar-days li:after {
+  position: relative;
+  inset: 0;
   margin: auto;
 }
 
