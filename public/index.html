@@ -26,10 +26,10 @@
     </header>
     <nav>
       <div class="flex">
-        <ul>
-          <li>Today</li>
-          <li>This week</li>
-          <li>This month</li>
+        <ul class="navbar">
+          <li class="nav-item">Today</li>
+          <li class="nav-item">This week</li>
+          <li class="nav-item">This month</li>
         </ul>
         <!-- Ska visa din plats väder Här -->
         <p class="location-weather">Loading weather...</p>
@@ -38,43 +38,54 @@
 
     <main>
       <aside>
-        <div class="container" id="container">
-          <!-- Vänstra delen dvs kalender dagar osv. -->
-          <div class="left">
-            <div class="calendar" id="calendar">
-              <div id="calendarheader">
-                <button class="prev-month" id="prev-month">&lt;</button>
-                <h1 class="month-year" id="month-year"></h1>
-                <button class="next-month" id="next-month">&gt;</button>
-              </div>
-              <table class="calendar-table" id="calendar-table"></table>
+        <div class="calendar disable-selection" id="calendar">
+          <div class="left-side">
+            <div class="current-day text-center">
+              <h1 class="calendar-left-side-day"></h1>
+              <div class="calendar-left-side-day-of-week"></div>
+            </div>
+            <div class="current-day-events">
+              <div>Current Events:</div>
+              <ul class="current-day-events-list"></ul>
+            </div>
+            <div class="add-event-day">
+              <input
+                type="text"
+                class="add-event-day-field"
+                placeholder="Create an Event"
+              />
+              <span
+                class="fa fa-plus-circle cursor-pointer add-event-day-field-btn"
+              ></span>
             </div>
           </div>
-          <div class="right">
-            <div id="dayAndDate"></div>
-            <h3 id="toDo">Todo:</h3>
-            <ul id="todo-list">
-              <!-- list object inserted by inputs and saved by JS-->
-            </ul>
-            <div id="todo-container">
-              <label for="new-todo">Add todo:</label>
-              <input type="text" id="new-todo" placeholder="Add new todo" />
-              <label for="todo-date">Date:</label>
-              <input type="date" id="todo-date" />
-              <label for="todo-time">Start-time</label>
-              <input type="time" id="todo-time" />
-              <label for="todo-end-time">End-time</label>
-              <input type="time" id="todo-end-time" />
-              <button id="addTodoItem">+</button>
+          <div class="right-side">
+            <div class="text-right calendar-change-year">
+              <div class="calendar-change-year-slider">
+                <span
+                  class="fa fa-caret-left cursor-pointer calendar-change-year-slider-prev"
+                ></span>
+                <span class="calendar-current-year"></span>
+                <span
+                  class="fa fa-caret-right cursor-pointer calendar-change-year-slider-next"
+                ></span>
+              </div>
+            </div>
+            <div class="calendar-month-list">
+              <ul class="calendar-month"></ul>
+            </div>
+            <div class="calendar-week-list">
+              <ul class="calendar-week"></ul>
+            </div>
+            <div class="calendar-day-list">
+              <ul class="calendar-days"></ul>
             </div>
           </div>
         </div>
-        <!-- Högra delen dvs todo och event delen -->
       </aside>
     </main>
     <script src="main.js"></script>
     <script src="today.js"></script>
-    <script src="todo.js"></script>
     <script src="weather.js"></script>
     <script src="calendar.js"></script>
   </body>
