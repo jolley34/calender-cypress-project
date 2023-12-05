@@ -2,9 +2,15 @@
 const calendarDaysElement = document.querySelector(".calendar-days");
 const calendarMonthListElement = document.querySelector(".calendar-month");
 const calendarWeekElement = document.querySelector(".calendar-week");
-const calendarCurrentYearElement = document.querySelector(".calendar-current-year");
-const calendarLeftSideDayElement = document.querySelector(".calendar-left-side-day");
-const calendarLeftSideDayOfWeekElement = document.querySelector(".calendar-left-side-day-of-week");
+const calendarCurrentYearElement = document.querySelector(
+  ".calendar-current-year"
+);
+const calendarLeftSideDayElement = document.querySelector(
+  ".calendar-left-side-day"
+);
+const calendarLeftSideDayOfWeekElement = document.querySelector(
+  ".calendar-left-side-day-of-week"
+);
 const addEventField = document.querySelector(".add-event-day-field");
 const addEventButton = document.querySelector(".add-event-day-field-btn");
 const currentEventsList = document.querySelector(".current-day-events-list");
@@ -25,14 +31,30 @@ function updateCalendar(year, month) {
   const currentDate = new Date();
   if (currentDate.getFullYear() === year && currentDate.getMonth() === month) {
     calendarLeftSideDayElement.textContent = currentDate.getDate();
-    calendarLeftSideDayOfWeekElement.textContent = currentDate.toLocaleString("default", { weekday: "long" });
+    calendarLeftSideDayOfWeekElement.textContent = currentDate.toLocaleString(
+      "default",
+      { weekday: "long" }
+    );
   } else {
     calendarLeftSideDayElement.textContent = "";
     calendarLeftSideDayOfWeekElement.textContent = "";
   }
 
   // Create array of month names and update month list
-  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
   monthNames.forEach((monthName, index) => {
     const li = document.createElement("li");
     li.textContent = monthName.substring(0, 3);
@@ -43,7 +65,15 @@ function updateCalendar(year, month) {
   });
 
   // Create array of weekdays and update weekday list
-  const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
   weekdays.forEach((weekday) => {
     const li = document.createElement("li");
     li.textContent = weekday.substring(0, 3); // Display abbreviated weekday names (e.g., Sun, Mon, Tue)
@@ -56,12 +86,9 @@ function updateCalendar(year, month) {
     li.classList.add("inactive");
     const prevMonthLastDay = new Date(year, month, 0).getDate();
     li.textContent = prevMonthLastDay - (firstDayOfMonth - i) + 1;
-    li.addEventListener("click", () => {
-      if (month === 0) {
-        updateCalendar(year - 1, 11); // Move to previous year and December
-      } else {
-        updateCalendar(year, month - 1); // Move to previous month
-      }
+    // Remove click event listener for inactive days
+    li.addEventListener("click", (event) => {
+      event.preventDefault(); // Prevent default click behavior on inactive days
     });
     calendarDaysElement.appendChild(li);
   }
@@ -87,7 +114,10 @@ function updateCalendar(year, month) {
 
       // Display the selected day in the left side elements
       calendarLeftSideDayElement.textContent = selectedDay.getDate();
-      calendarLeftSideDayOfWeekElement.textContent = selectedDay.toLocaleString("default", { weekday: "long" });
+      calendarLeftSideDayOfWeekElement.textContent = selectedDay.toLocaleString(
+        "default",
+        { weekday: "long" }
+      );
 
       // Show events for the selected day
       showEventsForSelectedDay(`${year}-${month + 1}`, i);
@@ -104,13 +134,8 @@ function updateCalendar(year, month) {
     const li = document.createElement("li");
     li.classList.add("inactive");
     li.textContent = i;
-    li.addEventListener("click", () => {
-      if (month === 11) {
-        updateCalendar(year + 1, 0); // Move to next year and January
-      } else {
-        updateCalendar(year, month + 1); // Move to next month
-      }
-    });
+   
+ 
     calendarDaysElement.appendChild(li);
   }
 
@@ -147,8 +172,12 @@ function showEventsForSelectedDay(storageKey, day) {
 // Function to highlight the current day with box shadow
 function highlightCurrentDay(element, year, month, day) {
   const currentDate = new Date();
-  if (currentDate.getFullYear() === year && currentDate.getMonth() === month && currentDate.getDate() === day) {
-    element.style.boxShadow = "0 0 5px 3px #ffff"; // Change the box shadow style as needed
+  if (
+    currentDate.getFullYear() === year &&
+    currentDate.getMonth() === month &&
+    currentDate.getDate() === day
+  ) {
+    element.style.boxShadow = "0 0 5px 3px #f2f2f2"; // Change the box shadow style as needed
   }
 }
 
@@ -163,23 +192,28 @@ updateCalendar(currentYear, currentMonth);
 // Event listeners for changing months and years
 calendarMonthListElement.addEventListener("click", (event) => {
   if (event.target.tagName === "LI") {
-    const monthIndex = Array.from(event.target.parentNode.children).indexOf(event.target);
+    const monthIndex = Array.from(event.target.parentNode.children).indexOf(
+      event.target
+    );
     currentMonth = monthIndex;
     updateCalendar(currentYear, currentMonth);
   }
 });
 
-document.querySelector(".calendar-change-year-slider-prev").addEventListener("click", () => {
-  currentYear -= 1;
-  updateCalendar(currentYear, currentMonth);
-});
+document
+  .querySelector(".calendar-change-year-slider-prev")
+  .addEventListener("click", () => {
+    currentYear -= 1;
+    updateCalendar(currentYear, currentMonth);
+  });
 
-document.querySelector(".calendar-change-year-slider-next").addEventListener("click", () => {
-  currentYear += 1;
-  updateCalendar(currentYear, currentMonth);
-});
+document
+  .querySelector(".calendar-change-year-slider-next")
+  .addEventListener("click", () => {
+    currentYear += 1;
+    updateCalendar(currentYear, currentMonth);
+  });
 
-// Add event listener to the "Add Event" button
 addEventButton.addEventListener("click", () => {
   const selectedDay = parseInt(calendarLeftSideDayElement.textContent);
   const storedKey = `${currentYear}-${currentMonth + 1}`;
@@ -196,10 +230,14 @@ addEventButton.addEventListener("click", () => {
     // Update the UI to show the event for the selected day
     showEventsForSelectedDay(storedKey, selectedDay);
 
-    // Highlight the day with an event
+    // Highlight the day with an event only if it's not an inactive day
     const dayElements = calendarDaysElement.querySelectorAll("li");
     dayElements.forEach((dayElement) => {
-      if (parseInt(dayElement.textContent) === selectedDay) {
+      const dayNumber = parseInt(dayElement.textContent);
+      if (
+        dayNumber === selectedDay &&
+        !dayElement.classList.contains("inactive")
+      ) {
         dayElement.classList.add("has-event");
       }
     });
@@ -207,4 +245,5 @@ addEventButton.addEventListener("click", () => {
     addEventField.value = ""; // Clear input field after adding the event
   }
 });
+
 

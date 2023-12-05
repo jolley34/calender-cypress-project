@@ -13,6 +13,12 @@ body {
 
 .calendar .calendar-days li.inactive {
   color: #777; 
+  cursor: default; /* Remove pointer cursor */
+}
+
+/* Remove hover color for inactive elements */
+.calendar .calendar-days li.inactive:hover {
+  color: #777; /* Set the same color as default */
 }
 
 .selected-day {
@@ -28,6 +34,7 @@ canvas {
   position: absolute;
   z-index: 1;
 }
+
 
 .location-weather {
   color: white;
