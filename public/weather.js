@@ -80,13 +80,63 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function animateWeather() {
-    drawParticles();
-    updateParticleMovement();
-    requestAnimationFrame(animateWeather);
-  }
+const clouds = [];
 
-  animateWeather();
+function initializeClouds() {
+  for (let i = 0; i < 5; i++) {
+    const cloudSize = Math.random() * 50 + 30; 
+    const cloudX = Math.random() * canvas.width;
+    const cloudY = Math.random() * canvas.height * 0.4; 
+
+    clouds.push({
+      x: cloudX,
+      y: cloudY,
+      size: cloudSize,
+      speed: Math.random() * 0.5 + 0.1, 
+    });
+  }
+}
+
+function updateCloudMovement() {
+  for (let i = 0; i < clouds.length; i++) {
+    clouds[i].x += clouds[i].speed;
+
+    if (clouds[i].x > canvas.width + clouds[i].size) {
+      clouds[i].x = -clouds[i].size;
+    }
+  }
+}
+
+function drawClouds() {
+  ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
+
+  for (let i = 0; i < clouds.length; i++) {
+    const { x, y, size } = clouds[i];
+
+    ctx.beginPath();
+    ctx.arc(x, y, size / 2, 1, Math.PI * 2);
+    ctx.arc(x + size * 0.25, y - size * 0.15, size / 2, 0, Math.PI * 2);
+    ctx.arc(x + size * 0.59, y, size / 2, 0, Math.PI * 2);
+    ctx.arc(x + size * 0.25, y + size * 0.15, size / 2, 0, Math.PI * 2);
+    ctx.arc(x + size * 0.6, y + size * 0.15, size / 2, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.fill();
+  }
+}
+
+
+function animateWeather() {
+  drawParticles();
+  updateParticleMovement();
+  if (weatherType === "none") {
+    drawClouds(); 
+    updateCloudMovement(); 
+  }
+  requestAnimationFrame(animateWeather);
+}
+
+initializeClouds();
+animateWeather(); 
 
   window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
