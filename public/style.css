@@ -11,6 +11,7 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+
 #clock {
   font-size: 1.5rem;
   color: #777;
@@ -94,15 +95,7 @@ header {
 .cursor-pointer {
   cursor: pointer;
 }
-
-.calendar,
-.calendar .add-event-day .add-event-day-field-btn,
-.calendar .calendar-days li:after {
-  position: absolute;
-  right: 0;
-  left: 0;
-  top: 0;
-  bottom: 0;
+.calendar {
   margin: auto;
 }
 
@@ -279,3 +272,4 @@ header {
   height: 30px;
   line-height: 30px;
 }
+
