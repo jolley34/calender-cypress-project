@@ -11,6 +11,19 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+.calendar .calendar-days li.inactive {
+  color: #777; 
+}
+
+.selected-day {
+  color: #404040;
+  border-radius: 10px;
+}
+
+ul {
+  list-style: none;
+}
+
 canvas {
   position: absolute;
   z-index: 1;
