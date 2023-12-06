@@ -46,12 +46,18 @@
             </div>
             <div class="current-day-events">
               <div>Current Events:</div>
-              <ul class="current-day-events-list"></ul>
+              <ul class="current-day-events-list">
+                <li>
+                  <i class="fa-solid fa-xmark cursor-pointer delete-event" style="display: none;"></i>
+                  <i class="fa-solid fa-pencil cursor-pointer edit-event" style="display: none;"></i>
+                </li>
+              </ul>
             </div>
             <div class="add-event-day">
               <input
                 type="text"
                 class="add-event-day-field"
+                data-cy="todo-title-input" 
                 placeholder="Create an Event"
               />
               <span
@@ -59,7 +65,7 @@
               ></span>
             </div>
           </div>
-          <div class="right-side">
+          <div class="right-side" data-cy="calendar-body">
             <div class="text-right calendar-change-year">
               <div class="calendar-change-year-slider">
                 <span
@@ -78,7 +84,7 @@
               <ul class="calendar-week"></ul>
             </div>
             <div class="calendar-day-list">
-              <ul class="calendar-days"></ul>
+              <ul class="calendar-days" data-cy="calendar-cell"></ul>
             </div>
           </div>
         </div>
