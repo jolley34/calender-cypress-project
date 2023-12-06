@@ -214,7 +214,8 @@ function showEventsForSelectedDay(storageKey, day) {
     });
   }
 }
-// Uppdaterad deleteEvent-funktion för att ta bort ett event
+
+// DeleteEvent-funktion för att ta bort ett event
 function deleteEvent(storageKey, day, eventText) {
   const storedEvents = JSON.parse(localStorage.getItem(storageKey)) || {};
 
@@ -335,3 +336,171 @@ addEventButton.addEventListener("click", () => {
     addEventField.value = ""; // Clear input field after adding the event
   }
 });
+
+// Function to set today's date and highlight events for today
+function showToday() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth();
+  const day = today.getDate();
+
+  // Update calendar to show today's date and events
+  updateCalendar(year, month);
+
+  // Find the day element for today
+  const dayElements = daysElement.querySelectorAll("li");
+  dayElements.forEach((dayElement) => {
+    if (
+      parseInt(dayElement.textContent) === day &&
+      !dayElement.classList.contains("inactive")
+    ) {
+      dayElement.classList.add("selected-day");
+      leftSideDayElement.textContent = day;
+      leftSideDayOfWeekElement.textContent = today.toLocaleString("default", {
+        weekday: "long",
+      });
+      showEventsForSelectedDay(`${year}-${month + 1}`, day);
+    }
+  });
+}
+
+// Get the 'Today' navbar item and add click event listener
+const todayNavItem = document.querySelector(".nav-item:nth-child(1)");
+todayNavItem.addEventListener("click", showToday);
+
+// Initialize calendar with today's date on page load
+showToday();
+
+// Function to show events for the current week
+function showEventsForCurrentWeek() {
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+  const currentDay = currentDate.getDate();
+
+  const startOfWeek = new Date(
+    currentYear,
+    currentMonth,
+    currentDay - currentDate.getDay()
+  );
+  const endOfWeek = new Date(
+    currentYear,
+    currentMonth,
+    currentDay + (6 - currentDate.getDay())
+  );
+
+  const startOfWeekTimestamp = startOfWeek.getTime();
+  const endOfWeekTimestamp = endOfWeek.getTime();
+
+  const storedKey = `${currentYear}-${currentMonth + 1}`;
+  const storedEvents = JSON.parse(localStorage.getItem(storedKey)) || {};
+
+  eventsList.innerHTML = ""; // Clear existing events
+
+  for (
+    let day = startOfWeekTimestamp;
+    day <= endOfWeekTimestamp;
+    day += 86400000
+  ) {
+    const eventDay = new Date(day).getDate();
+    if (storedEvents[eventDay]) {
+      storedEvents[eventDay].forEach((eventText) => {
+        const eventItem = document.createElement("li");
+        const eventSpan = document.createElement("span");
+        eventSpan.textContent = eventText;
+        eventItem.appendChild(eventSpan);
+
+        // Delete Event Icon
+        const deleteIcon = document.createElement("i");
+        deleteIcon.classList.add(
+          "fa-solid",
+          "fa-xmark",
+          "cursor-pointer",
+          "delete-event"
+        );
+        deleteIcon.addEventListener("click", () => {
+          deleteEvent(storedKey, eventDay, eventText);
+          showEventsForCurrentWeek();
+        });
+        eventItem.appendChild(deleteIcon);
+
+        // Edit Event Icon
+        const editIcon = document.createElement("i");
+        editIcon.classList.add(
+          "fa-solid",
+          "fa-pencil",
+          "cursor-pointer",
+          "edit-event"
+        );
+        editIcon.addEventListener("click", () => {
+          editEvent(storedKey, eventDay, eventText);
+        });
+        eventItem.appendChild(editIcon);
+
+        eventsList.appendChild(eventItem);
+      });
+    }
+  }
+}
+
+// Function to show events for the current month
+function showEventsForCurrentMonth() {
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const storedKey = `${currentYear}-${currentMonth + 1}`;
+  const storedEvents = JSON.parse(localStorage.getItem(storedKey)) || {};
+
+  eventsList.innerHTML = ""; // Clear existing events
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    if (storedEvents[day]) {
+      storedEvents[day].forEach((eventText) => {
+        const eventItem = document.createElement("li");
+        const eventSpan = document.createElement("span");
+        eventSpan.textContent = eventText;
+        eventItem.appendChild(eventSpan);
+
+        // Delete Event Icon
+        const deleteIcon = document.createElement("i");
+        deleteIcon.classList.add(
+          "fa-solid",
+          "fa-xmark",
+          "cursor-pointer",
+          "delete-event"
+        );
+        deleteIcon.addEventListener("click", () => {
+          deleteEvent(storedKey, day, eventText);
+          showEventsForCurrentMonth();
+        });
+        eventItem.appendChild(deleteIcon);
+
+        // Edit Event Icon
+        const editIcon = document.createElement("i");
+        editIcon.classList.add(
+          "fa-solid",
+          "fa-pencil",
+          "cursor-pointer",
+          "edit-event"
+        );
+        editIcon.addEventListener("click", () => {
+          editEvent(storedKey, day, eventText);
+        });
+        eventItem.appendChild(editIcon);
+
+        eventsList.appendChild(eventItem);
+      });
+    }
+  }
+}
+
+// Get the 'This week' and 'This month' navbar items and add click event listeners
+const thisWeekNavItem = document.querySelector(".nav-item:nth-child(2)");
+thisWeekNavItem.addEventListener("click", showEventsForCurrentWeek);
+
+const thisMonthNavItem = document.querySelector(".nav-item:nth-child(3)");
+thisMonthNavItem.addEventListener("click", showEventsForCurrentMonth);
+
+
