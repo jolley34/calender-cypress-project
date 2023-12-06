@@ -552,9 +552,23 @@ function highlightCurrentMonth() {
 
 const thisWeekNavItem = document.querySelector(".nav-item:nth-child(2)");
 thisWeekNavItem.addEventListener("click", () => {
-  showEventsForCurrentWeek(); // För att visa händelser för aktuell vecka
-  highlightCurrentWeek(); // För att markera dagarna i veckan
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+  
+  updateCalendar(currentYear, currentMonth); // Uppdatera kalendern till aktuell månad
+  showEventsForCurrentWeek(); // Visa händelser för aktuell vecka
+  highlightCurrentWeek(); // Markera dagarna i veckan
 });
 
 const thisMonthNavItem = document.querySelector(".nav-item:nth-child(3)");
-thisMonthNavItem.addEventListener("click", showEventsForCurrentMonth);
+thisMonthNavItem.addEventListener("click", () => {
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+
+  updateCalendar(currentYear, currentMonth); // Uppdatera kalendern till aktuell månad
+  showEventsForCurrentMonth(); // Visa händelser för aktuell månad
+  highlightCurrentMonth(); // Markera dagarna i månaden
+});
+
