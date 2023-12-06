@@ -165,7 +165,7 @@ function highlightDaysWithEvents(year, month) {
     if (storedEvents[dayNumber] && !dayElement.classList.contains("inactive")) {
       dayElement.classList.add("has-event");
     } else {
-      dayElement.classList.remove("has-event");
+      dayElement.classList.remove("has-event"); // Ta bort highlight-klassen om det inte finns några händelser längre
     }
   });
 }
@@ -214,19 +214,23 @@ function showEventsForSelectedDay(storageKey, day) {
     });
   }
 }
-
-// Function to delete an event
+// Uppdaterad deleteEvent-funktion för att ta bort ett event
 function deleteEvent(storageKey, day, eventText) {
-    const storedEvents = JSON.parse(localStorage.getItem(storageKey)) || {};
-    const eventsForDay = storedEvents[day];
-  
-    const updatedEventsForDay = eventsForDay.filter(
+  const storedEvents = JSON.parse(localStorage.getItem(storageKey)) || {};
+
+  if (storedEvents[day]) {
+    const updatedEventsForDay = storedEvents[day].filter(
       (event) => event !== eventText
     );
+
     storedEvents[day] = updatedEventsForDay;
+
+    if (storedEvents[day].length === 0) {
+      delete storedEvents[day]; // Ta bort dagen helt om inga events återstår
+    }
+
     localStorage.setItem(storageKey, JSON.stringify(storedEvents));
-  
-    // Remove highlight from the day that had the deleted event
+
     const dayElements = daysElement.querySelectorAll("li");
     dayElements.forEach((dayElement) => {
       const dayNumber = parseInt(dayElement.textContent);
@@ -234,10 +238,10 @@ function deleteEvent(storageKey, day, eventText) {
         dayElement.classList.remove("has-event");
       }
     });
-  
-    // Update the events displayed for the selected day
+
     showEventsForSelectedDay(storageKey, day);
   }
+}
 
 // Function to edit an event
 function editEvent(storageKey, day, eventText) {
@@ -331,4 +335,3 @@ addEventButton.addEventListener("click", () => {
     addEventField.value = ""; // Clear input field after adding the event
   }
 });
-
