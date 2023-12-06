@@ -57,6 +57,7 @@
               <input
                 type="text"
                 class="add-event-day-field"
+                data-cy="todo-title-input" 
                 placeholder="Create an Event"
               />
               <span
@@ -64,7 +65,7 @@
               ></span>
             </div>
           </div>
-          <div class="right-side">
+          <div class="right-side" data-cy="calendar-body">
             <div class="text-right calendar-change-year">
               <div class="calendar-change-year-slider">
                 <span
@@ -83,7 +84,7 @@
               <ul class="calendar-week"></ul>
             </div>
             <div class="calendar-day-list">
-              <ul class="calendar-days"></ul>
+              <ul class="calendar-days" data-cy="calendar-cell"></ul>
             </div>
           </div>
         </div>
