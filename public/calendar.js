@@ -371,7 +371,6 @@ todayNavItem.addEventListener("click", showToday);
 // Initialize calendar with today's date on page load
 showToday();
 
-// Function to show events for the current week
 function showEventsForCurrentWeek() {
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
@@ -381,81 +380,20 @@ function showEventsForCurrentWeek() {
   const startOfWeek = new Date(
     currentYear,
     currentMonth,
-    currentDay - currentDate.getDay()
+    currentDay - currentDate.getDay() + 1 // Justera för att börja från måndag
   );
   const endOfWeek = new Date(
     currentYear,
     currentMonth,
-    currentDay + (6 - currentDate.getDay())
+    currentDay + (7 - currentDate.getDay()) // Justera för att inkludera söndagen
   );
 
-  const startOfWeekTimestamp = startOfWeek.getTime();
-  const endOfWeekTimestamp = endOfWeek.getTime();
-
   const storedKey = `${currentYear}-${currentMonth + 1}`;
   const storedEvents = JSON.parse(localStorage.getItem(storedKey)) || {};
 
   eventsList.innerHTML = ""; // Clear existing events
 
-  for (
-    let day = startOfWeekTimestamp;
-    day <= endOfWeekTimestamp;
-    day += 86400000
-  ) {
-    const eventDay = new Date(day).getDate();
-    if (storedEvents[eventDay]) {
-      storedEvents[eventDay].forEach((eventText) => {
-        const eventItem = document.createElement("li");
-        const eventSpan = document.createElement("span");
-        eventSpan.textContent = eventText;
-        eventItem.appendChild(eventSpan);
-
-        // Delete Event Icon
-        const deleteIcon = document.createElement("i");
-        deleteIcon.classList.add(
-          "fa-solid",
-          "fa-xmark",
-          "cursor-pointer",
-          "delete-event"
-        );
-        deleteIcon.addEventListener("click", () => {
-          deleteEvent(storedKey, eventDay, eventText);
-          showEventsForCurrentWeek();
-        });
-        eventItem.appendChild(deleteIcon);
-
-        // Edit Event Icon
-        const editIcon = document.createElement("i");
-        editIcon.classList.add(
-          "fa-solid",
-          "fa-pencil",
-          "cursor-pointer",
-          "edit-event"
-        );
-        editIcon.addEventListener("click", () => {
-          editEvent(storedKey, eventDay, eventText);
-        });
-        eventItem.appendChild(editIcon);
-
-        eventsList.appendChild(eventItem);
-      });
-    }
-  }
-}
-
-// Function to show events for the current month
-function showEventsForCurrentMonth() {
-  const currentDate = new Date();
-  const currentYear = currentDate.getFullYear();
-  const currentMonth = currentDate.getMonth();
-
-  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-  const storedKey = `${currentYear}-${currentMonth + 1}`;
-  const storedEvents = JSON.parse(localStorage.getItem(storedKey)) || {};
-
-  eventsList.innerHTML = ""; // Clear existing events
-
-  for (let day = 1; day <= daysInMonth; day++) {
+  for (let day = startOfWeek.getDate(); day <= endOfWeek.getDate(); day++) {
     if (storedEvents[day]) {
       storedEvents[day].forEach((eventText) => {
         const eventItem = document.createElement("li");
@@ -473,7 +411,7 @@ function showEventsForCurrentMonth() {
         );
         deleteIcon.addEventListener("click", () => {
           deleteEvent(storedKey, day, eventText);
-          showEventsForCurrentMonth();
+          showEventsForCurrentWeek();
         });
         eventItem.appendChild(deleteIcon);
 
@@ -496,11 +434,127 @@ function showEventsForCurrentMonth() {
   }
 }
 
-// Get the 'This week' and 'This month' navbar items and add click event listeners
+// Function to show events for the current month
+function showEventsForCurrentMonth() {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+  
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const storedKey = `${currentYear}-${currentMonth + 1}`;
+    const storedEvents = JSON.parse(localStorage.getItem(storedKey)) || {};
+  
+    eventsList.innerHTML = ""; // Clear existing events
+  
+    for (let day = 1; day <= daysInMonth; day++) {
+      if (storedEvents[day]) {
+        storedEvents[day].forEach((eventText) => {
+          const eventItem = document.createElement("li");
+          const eventSpan = document.createElement("span");
+          eventSpan.textContent = eventText;
+          eventItem.appendChild(eventSpan);
+  
+          // Delete Event Icon
+          const deleteIcon = document.createElement("i");
+          deleteIcon.classList.add(
+            "fa-solid",
+            "fa-xmark",
+            "cursor-pointer",
+            "delete-event"
+          );
+          deleteIcon.addEventListener("click", () => {
+            deleteEvent(storedKey, day, eventText);
+            showEventsForCurrentMonth(); // Uppdatera händelser för den aktuella månaden efter borttagning av händelse
+            highlightCurrentMonth(); // Markera dagarna för den aktuella månaden igen
+          });
+          eventItem.appendChild(deleteIcon);
+  
+          // Edit Event Icon
+          const editIcon = document.createElement("i");
+          editIcon.classList.add(
+            "fa-solid",
+            "fa-pencil",
+            "cursor-pointer",
+            "edit-event"
+          );
+          editIcon.addEventListener("click", () => {
+            editEvent(storedKey, day, eventText);
+          });
+          eventItem.appendChild(editIcon);
+  
+          eventsList.appendChild(eventItem);
+        });
+      }
+    }
+    highlightCurrentMonth(); // Markera dagarna för den aktuella månaden vid sidans laddning
+  }
+  
+
+function highlightCurrentWeek() {
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+  const currentDay = currentDate.getDate();
+  const startOfWeek = new Date(
+    currentYear,
+    currentMonth,
+    currentDay - currentDate.getDay() + 1 // Justera för att börja från måndag
+  );
+  const endOfWeek = new Date(
+    currentYear,
+    currentMonth,
+    currentDay + (7 - currentDate.getDay()) // Justera för att inkludera söndagen
+  );
+
+  const dayElements = daysElement.querySelectorAll("li");
+  dayElements.forEach((dayElement) => {
+    const day = parseInt(dayElement.textContent);
+    const date = new Date(currentYear, currentMonth, day);
+
+    // Kontrollera att det är en giltig dag (inte inaktiv)
+    if (!dayElement.classList.contains("inactive")) {
+      if (date >= startOfWeek && date <= endOfWeek) {
+        dayElement.style.background = "#404040"; // Markera hela veckan
+        if (!dayElement.classList.contains("has-event")) {
+          dayElement.style.backgroundColor = ""; // Återställ endast bakgrundsfärg om det inte finns några händelser
+        }
+      } else {
+        dayElement.style.backgroundColor = ""; // Återställ till standard bakgrundsfärg för dagar utanför veckan
+      }
+    }
+  });
+}
+
+function highlightCurrentMonth() {
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+  const dayElements = daysElement.querySelectorAll("li");
+  dayElements.forEach((dayElement) => {
+    const day = parseInt(dayElement.textContent);
+    const date = new Date(currentYear, currentMonth, day);
+
+    if (!dayElement.classList.contains("inactive")) {
+      if (date.getMonth() === currentMonth) {
+        dayElement.style.background = "#404040"; // Markera hela månaden
+        if (!dayElement.classList.contains("has-event")) {
+          dayElement.style.backgroundColor = ""; // Återställ endast bakgrundsfärg om det inte finns några händelser
+        }
+      } else {
+        dayElement.style.backgroundColor = ""; // Återställ till standard bakgrundsfärg för dagar utanför månaden
+      }
+    }
+  });
+}
+
 const thisWeekNavItem = document.querySelector(".nav-item:nth-child(2)");
-thisWeekNavItem.addEventListener("click", showEventsForCurrentWeek);
+thisWeekNavItem.addEventListener("click", () => {
+  showEventsForCurrentWeek(); // För att visa händelser för aktuell vecka
+  highlightCurrentWeek(); // För att markera dagarna i veckan
+});
 
 const thisMonthNavItem = document.querySelector(".nav-item:nth-child(3)");
 thisMonthNavItem.addEventListener("click", showEventsForCurrentMonth);
-
-

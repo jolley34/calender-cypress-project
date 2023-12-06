@@ -27,11 +27,6 @@ body {
   background: none; 
 }
 
-.highlight {
-  background-color: lightgray;
-}
-
-
 .selected-day {
   color: #404040;
   border-radius: 10px;
@@ -110,7 +105,6 @@ header {
 
 .has-event {
   background-color: #848484;
-  border-radius: 10px;
 }
 
 .calendar {
