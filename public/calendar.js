@@ -177,11 +177,81 @@ function showEventsForSelectedDay(storageKey, day) {
 
   eventsList.innerHTML = ""; // Clear existing events
   if (eventsForDay) {
-    eventsForDay.forEach((event) => {
+    eventsForDay.forEach((eventText) => {
       const eventItem = document.createElement("li");
-      eventItem.textContent = event;
+      const eventSpan = document.createElement("span");
+      eventSpan.textContent = eventText;
+      eventItem.appendChild(eventSpan);
+
+      // Delete Event Icon
+      const deleteIcon = document.createElement("i");
+      deleteIcon.classList.add(
+        "fa-solid",
+        "fa-xmark",
+        "cursor-pointer",
+        "delete-event"
+      );
+      deleteIcon.addEventListener("click", () => {
+        deleteEvent(storageKey, day, eventText);
+        showEventsForSelectedDay(storageKey, day);
+      });
+      eventItem.appendChild(deleteIcon);
+
+      // Edit Event Icon
+      const editIcon = document.createElement("i");
+      editIcon.classList.add(
+        "fa-solid",
+        "fa-pencil",
+        "cursor-pointer",
+        "edit-event"
+      );
+      editIcon.addEventListener("click", () => {
+        editEvent(storageKey, day, eventText);
+      });
+      eventItem.appendChild(editIcon);
+
       eventsList.appendChild(eventItem);
     });
+  }
+}
+
+// Function to delete an event
+function deleteEvent(storageKey, day, eventText) {
+    const storedEvents = JSON.parse(localStorage.getItem(storageKey)) || {};
+    const eventsForDay = storedEvents[day];
+  
+    const updatedEventsForDay = eventsForDay.filter(
+      (event) => event !== eventText
+    );
+    storedEvents[day] = updatedEventsForDay;
+    localStorage.setItem(storageKey, JSON.stringify(storedEvents));
+  
+    // Remove highlight from the day that had the deleted event
+    const dayElements = daysElement.querySelectorAll("li");
+    dayElements.forEach((dayElement) => {
+      const dayNumber = parseInt(dayElement.textContent);
+      if (dayNumber === day) {
+        dayElement.classList.remove("has-event");
+      }
+    });
+  
+    // Update the events displayed for the selected day
+    showEventsForSelectedDay(storageKey, day);
+  }
+
+// Function to edit an event
+function editEvent(storageKey, day, eventText) {
+  const storedEvents = JSON.parse(localStorage.getItem(storageKey)) || {};
+  const eventsForDay = storedEvents[day];
+
+  const index = eventsForDay.indexOf(eventText);
+  if (index !== -1) {
+    const newEventText = prompt("Edit Event:", eventText);
+    if (newEventText !== null && newEventText.trim() !== "") {
+      eventsForDay[index] = newEventText;
+      localStorage.setItem(storageKey, JSON.stringify(storedEvents));
+      showEventsForSelectedDay(storageKey, day);
+    }
   }
 }
 
@@ -261,3 +331,4 @@ addEventButton.addEventListener("click", () => {
     addEventField.value = ""; // Clear input field after adding the event
   }
 });
+
