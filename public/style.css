@@ -234,6 +234,14 @@ input{
   color: rgb(195, 195, 195);
   font-weight: 600;
 }
+
+.calendar-change-year-slider {
+  text-align: center;
+}
+
+.calendar-week li {
+  margin-top: 1rem;
+}
 .calendar .calendar-days li {
   color: white;
   height: 50px;
