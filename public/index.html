@@ -44,24 +44,33 @@
               <h1 class="calendar-left-side-day"></h1>
               <div class="calendar-left-side-day-of-week"></div>
             </div>
+
             <div class="current-day-events">
               <div class="event-title">Planned events:</div>
-              <ul class="current-day-events-list">
+              <ul class="current-day-events-list" data-cy="todo-list" "delete-todo-button">
+
                 <li>
-                  <i class="fa-solid fa-xmark cursor-pointer delete-event" style="display: none;"></i>
+                  <i class="fa-solid fa-xmark cursor-pointer delete-event" style="display: none;" ></i>
                   <i class="fa-solid fa-pencil cursor-pointer edit-event" style="display: none;"></i>
                 </li>
               </ul>
             </div>
-            <div class="add-event-day">
+            <div class="add-event-day" >
               <input
                 type="text"
                 class="add-event-day-field"
                 data-cy="todo-title-input" 
                 placeholder="Create an Event"
               />
+              <input 
+              type="date"
+              class="add-todo-date-field"
+              data-cy="todo-date-input"
+              placeholder="Date of event"
+              />
               <span
                 class="fa fa-plus-circle cursor-pointer add-event-day-field-btn"
+                data-cy="save-todo-button"
               ></span>
             </div>
           </div>

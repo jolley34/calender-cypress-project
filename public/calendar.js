@@ -183,6 +183,7 @@ function showEventsForSelectedDay(storageKey, day) {
       eventSpan.textContent = eventText;
       eventItem.appendChild(eventSpan);
 
+
       // Delete Event Icon
       const deleteIcon = document.createElement("i");
       deleteIcon.classList.add(
@@ -190,10 +191,16 @@ function showEventsForSelectedDay(storageKey, day) {
         "fa-xmark",
         "cursor-pointer",
         "delete-event"
+
+        
+
       );
       deleteIcon.addEventListener("click", () => {
         deleteEvent(storageKey, day, eventText);
         showEventsForSelectedDay(storageKey, day);
+
+        //deleteIcon.setAttribute("data-cy", "delete-todo-button");
+      
       });
       eventItem.appendChild(deleteIcon);
 
@@ -218,6 +225,7 @@ function showEventsForSelectedDay(storageKey, day) {
 // DeleteEvent-funktion för att ta bort ett event
 function deleteEvent(storageKey, day, eventText) {
   const storedEvents = JSON.parse(localStorage.getItem(storageKey)) || {};
+  
 
   if (storedEvents[day]) {
     const updatedEventsForDay = storedEvents[day].filter(
@@ -239,6 +247,8 @@ function deleteEvent(storageKey, day, eventText) {
         dayElement.classList.remove("has-event");
       }
     });
+
+    //deleteTodo.setAttribute('data-cy', 'delete-todo-button'); // Adding data-cy
 
     showEventsForSelectedDay(storageKey, day);
   }
@@ -408,11 +418,14 @@ function showEventsForCurrentWeek() {
           "fa-xmark",
           "cursor-pointer",
           "delete-event"
-        );
+          );
+
         deleteIcon.addEventListener("click", () => {
           deleteEvent(storedKey, day, eventText);
           showEventsForCurrentWeek();
+          
         });
+        
         eventItem.appendChild(deleteIcon);
 
         // Edit Event Icon
