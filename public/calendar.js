@@ -67,7 +67,6 @@ function updateLeftSideWithCurrentDate(year, month) {
   }
 }
 
-
 function createWeekdayList() {
   const weekdays = [
     "Monday",
@@ -584,7 +583,7 @@ thisMonthNavItem.addEventListener("click", () => {
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth();
-
+  
   updateCalendar(currentYear, currentMonth); // Uppdatera kalendern till aktuell månad
   showEventsForCurrentMonth(); // Visa händelser för aktuell månad
   highlightCurrentMonth(); // Markera dagarna i månaden
