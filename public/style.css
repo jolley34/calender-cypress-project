@@ -28,7 +28,7 @@ body {
 }
 
 .calendar .calendar-days li.inactive:hover:after {
-  background: none; 
+  background: none;
 }
 
 .selected-day {
@@ -44,7 +44,6 @@ canvas {
   position: absolute;
   z-index: 1;
 }
-
 
 .location-weather {
   color: white;
@@ -62,7 +61,6 @@ canvas {
   color: white;
   z-index: 2;
 }
-
 
 nav {
   padding-inline: 2rem;
@@ -107,16 +105,21 @@ header {
   margin: auto;
 }
 
+aside {
+  padding-inline: 20rem;
+}
+
 .has-event {
   background-color: #848484;
 }
 
 .calendar {
+  margin: 2rem;
+  display: flex;
+  justify-content: space-between;
   backdrop-filter: blur(25px);
   z-index: 2;
   background: rgba(52, 52, 52, 0.366);
-  width: 840px;
-  height: 490px;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -144,9 +147,8 @@ header {
   height: 100%;
 }
 .calendar .left-side {
-  width: 320px;
   background: #373737;
-  float: left;
+  width: 30%;
 }
 .calendar .current-day,
 .calendar .current-day-events {
@@ -189,7 +191,6 @@ header {
   line-height: 34px;
 }
 .calendar .right-side {
-  width: 520px;
   float: right;
 }
 .calendar .calendar-change-year {
@@ -229,7 +230,6 @@ header {
 }
 .calendar .calendar-days li {
   color: white;
-  width: calc(460px / 7);
   height: 50px;
   line-height: 50px;
 }
@@ -274,9 +274,97 @@ header {
   color: #737373;
   border-top: 1px solid #ccc;
 }
-.calendar .calendar-week li {
-  width: calc(460px / 7);
-  height: 30px;
-  line-height: 30px;
+
+.event-title {
+  margin-bottom: 1rem;
+  font-weight: 900;
 }
+
+.add-event-day {
+  display: flex;
+}
+
+li {
+  word-break: break-all;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.calendar .calendar-week {
+  display: flex;
+  justify-content: space-between;
+}
+
+.calendar .calendar-week li {
+  width: calc(100% / 7);
+}
+
+.calendar .calendar-days {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.calendar .calendar-days li {
+  flex: 1 0 calc(100% / 7);
+}
+
+@media (max-width: 1492px) {
+  aside {
+    padding-inline: 16rem;
+  }
+}
+
+@media (max-width: 1366px) {
+  aside {
+    padding-inline: 12rem;
+  }
+}
+
+@media (max-width: 1232px) {
+  aside {
+    padding-inline: 8rem;
+  }
+}
+
+@media (max-width: 1100px) {
+  aside {
+    padding-inline: 6rem;
+  }
+}
+
+@media (max-width: 1036px) {
+  aside {
+    padding-inline: 4rem;
+  }
+}
+
+@media (max-width: 975px) {
+  aside {
+    padding-inline: 2rem;
+  }
+}
+
+@media (max-width: 905px) {
+  aside {
+    padding-inline: 0.5rem;
+  }
+}
+
+@media (max-width: 855px) {
+  aside {
+    padding-inline: 0.5rem;
+  }
+
+  .calendar {
+    flex-wrap: wrap;
+  }
+
+  .calendar .left-side {
+    background: #373737;
+    width: 100%;
+  }
+}
+
+
 

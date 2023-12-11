@@ -17,7 +17,7 @@
   </head>
   <body>
     <canvas class="weather"></canvas>
-    <header>
+    <header data-cy="welcome-segment">
       <h1 id="todaysMonthDate"><!-- JS --></h1>
       <div class="flex">
         <h2 id="todaysDay"><!-- JS--></h2>
@@ -44,9 +44,11 @@
               <h1 class="calendar-left-side-day"></h1>
               <div class="calendar-left-side-day-of-week"></div>
             </div>
-            <div class="current-day-events" >
-              <div>Current Events:</div>
+
+            <div class="current-day-events">
+              <div class="event-title">Planned events:</div>
               <ul class="current-day-events-list" data-cy="todo-list" "delete-todo-button">
+
                 <li>
                   <i class="fa-solid fa-xmark cursor-pointer delete-event" style="display: none;" ></i>
                   <i class="fa-solid fa-pencil cursor-pointer edit-event" style="display: none;"></i>
@@ -88,10 +90,11 @@
               <ul class="calendar-month"></ul>
             </div>
             <div class="calendar-week-list">
-              <ul class="calendar-week"></ul>
+              <ul class="calendar-week">
+              </ul>
             </div>
             <div class="calendar-day-list">
-              <ul class="calendar-days" data-cy="calendar-cell"></ul>
+              <ul class="calendar-days"></ul>
             </div>
           </div>
         </div>
