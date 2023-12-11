@@ -6,10 +6,11 @@ function main(){
    // toDaysMonth();
    updateDate();
    updateClock();
-
+   setInterval(updateClock, 1000);
 }
 
 function updateClock() {
+    updateDate()
     const now = new Date();
     let hours = now.getHours();
     let minutes = now.getMinutes();
@@ -19,11 +20,7 @@ function updateClock() {
    
     const timeElement = document.getElementById("clock");
     timeElement.textContent = `${hours}:${minutes}`;
-}
-    //updateClock();
-    setInterval(updateClock, 1000);
-
-
+}  
 
 function updateDate(){
     const daysOfWeek = ['Sundays', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -33,11 +30,12 @@ function updateDate(){
     const dayOfWeek = daysOfWeek[today.getDay()];
     const date = today.getDate();
     const month = months[today.getMonth()];
+    const year = today.getFullYear();
 
   /*   document.getElementById('asideDay').textContent = dayOfWeek;
     document.getElementById('asideDate').textContent = date;
     document.getElementById('asideMonth').textContent = month; */
-    document.getElementById('todaysMonthDate').textContent = month + ' ' + date;
+    document.getElementById('todaysMonthDate').textContent =  year + ' ' + month + ' ' + date;
     document.getElementById('todaysDay').textContent = dayOfWeek;
 
 
