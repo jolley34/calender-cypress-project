@@ -14,7 +14,10 @@ const eventsList = document.querySelector(".current-day-events-list");
 // Function to update calendar based on current month and year
 function updateCalendar(year, month) {
   const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const firstDayOfMonth = new Date(year, month, 1).getDay();
+  let firstDayOfMonth = new Date(year, month, 1).getDay() - 1;
+  if (firstDayOfMonth === -1) {
+    firstDayOfMonth = 6;
+  }
 
   daysElement.innerHTML = "";
   monthListElement.innerHTML = "";
@@ -87,6 +90,8 @@ function createWeekdayList() {
     const li = document.createElement("li");
     li.textContent = weekday.substring(0, 3);
     weekElement.appendChild(li);
+    
+  
   });
 }
 
@@ -94,17 +99,25 @@ function addPreviousMonthDays(year, month, firstDayOfMonth) {
   for (let i = 0; i < firstDayOfMonth; i++) {
     const li = document.createElement("li");
     li.classList.add("inactive");
+    li.setAttribute("data-cy", "calendar-cell");
     const prevMonthLastDay = new Date(year, month, 0).getDate();
     li.textContent = prevMonthLastDay - (firstDayOfMonth - i) + 1;
     daysElement.appendChild(li);
+
+
   }
 }
 
 function addCurrentMonthDays(year, month, daysInMonth) {
   for (let i = 1; i <= daysInMonth; i++) {
     const li = document.createElement("li");
-    li.textContent = i;
+    li.setAttribute("data-cy", "calendar-cell");
     daysElement.appendChild(li);
+    
+    const dateSpan = document.createElement("span");
+    dateSpan.setAttribute("data-cy", "calendar-cell-date")
+    dateSpan.textContent = i;
+    li.append(dateSpan)
 
     // Add event listener to each day element
     li.addEventListener("click", () => {
@@ -149,6 +162,7 @@ function addNextMonthDays(year, month, daysInMonth, firstDayOfMonth) {
   const remainingCells = 42 - totalCells; // 6 rows x 7 columns (42 cells)
   for (let i = 1; i <= remainingCells; i++) {
     const li = document.createElement("li");
+    li.setAttribute("data-cy", "calendar-cell");
     li.classList.add("inactive");
     li.textContent = i;
     daysElement.appendChild(li);
