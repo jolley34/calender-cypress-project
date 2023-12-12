@@ -38,9 +38,8 @@ function showEventsForSelectedDay(selectedYear, selectedMonth, selectedDay) {
   });
 }
 
-
 window.addEventListener('load', () => {
   loadEvent();
-  showEventsForSelectedDay();
+  showEventsForSelectedDay()
 });
 

@@ -70,6 +70,7 @@ function updateLeftSideWithCurrentDate(year, month) {
   }
 }
 
+
 // Create weekday list
 function createWeekdayList() {
   const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -110,7 +111,7 @@ function addCurrentMonthDays(year, month, daysInMonth) {
       handleDayClick(year, month, i, li);
     });
 
-    highlightCurrentDay(li, year, month, i);
+    displayCurrentDay(li, year, month, i);
   }
 }
 
@@ -153,7 +154,7 @@ function updateLeftSideWithSelectedDate(selectedDay) {
 
 
 // Highlight current day
-function highlightCurrentDay(element, year, month, day) {
+function displayCurrentDay(element, year, month, day) {
   const currentDate = new Date();
   if (
     currentDate.getFullYear() === year &&
@@ -196,6 +197,7 @@ getElement(".calendar-change-year-slider-next").addEventListener("click", () => 
   }
   updateCalendar(currentYear, currentMonth);
 });
+
 
 // Other event listeners and functions can be similarly modularized for cleaner code structure.
 
