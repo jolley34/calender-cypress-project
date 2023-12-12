@@ -158,13 +158,12 @@ aside {
   height: 215px;
 }
 .calendar .current-day-events ul {
-  padding-left: 30px;
+
   list-style: none;
 }
 .calendar .current-day-events ul li::before {
-  content: "-";
   position: absolute;
-  left: 3px;
+
 }
 .calendar h1.calendar-left-side-day {
   font-size: 92px;
@@ -234,6 +233,14 @@ input{
   color: rgb(195, 195, 195);
   font-weight: 600;
 }
+
+.calendar-change-year-slider {
+  text-align: center;
+}
+
+.calendar-week li {
+  margin-top: 1rem;
+}
 .calendar .calendar-days li {
   color: white;
   height: 50px;
@@ -293,11 +300,12 @@ input{
   display: flex;
 }
 
+
 li {
   word-break: break-all;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  gap: 0.5rem;
 }
 
 .calendar .calendar-week {
