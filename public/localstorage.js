@@ -8,3 +8,5 @@ function saveEvent() {
 function loadEvent() {
     todos = JSON.parse(localStorage.getItem('todos')) || [];
 }
+
+console.log(todos)

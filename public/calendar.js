@@ -42,7 +42,6 @@ function updateCalendar(year, month) {
   addPreviousMonthDays(year, month, firstDayOfMonth);
   addCurrentMonthDays(year, month, daysInMonth);
   addNextMonthDays(year, month, daysInMonth, firstDayOfMonth);
-  highlightDaysWithEvents(year, month);
 }
 
 // Clear elements
@@ -130,35 +129,20 @@ function addNextMonthDays() {
   }
 }
 
-// Highlight days with events
-function highlightDaysWithEvents() {
-  const dayElements = elements.daysElement.querySelectorAll("li");
-  dayElements.forEach((dayElement) => {
-    // Logic to highlight days with events (if required)
-    // Example:
-    // const dayNumber = parseInt(dayElement.textContent);
-    // if (eventsForDayContainsEvent(year, month, dayNumber)) {
-    //   dayElement.classList.add("has-event");
-    // } else {
-    //   dayElement.classList.remove("has-event");
-    // }
-  });
-}
-
 // Handle day click
 function handleDayClick(year, month, day, li) {
   const selectedDay = new Date(year, month, day);
-  const dayElements = elements.daysElement.querySelectorAll("li");
+  const dayElements = elements.daysElement.querySelectorAll('li');
 
   dayElements.forEach((dayElement) => {
-    dayElement.classList.remove("selected-day");
+    dayElement.classList.remove('selected-day');
   });
 
-  li.classList.add("selected-day");
+  li.classList.add('selected-day');
 
   updateLeftSideWithSelectedDate(selectedDay);
   // Show events for selected day
-  // showEventsForSelectedDay(`${year}-${month + 1}`, day);
+  showEventsForSelectedDay(year, month, day); // Update to display events for the selected day
 }
 
 // Update left side with selected date
@@ -180,7 +164,18 @@ function highlightCurrentDay(element, year, month, day) {
   }
 }
 
-// event listeners
+// EVENT LISTERNERS
+
+// ADD EVENT BUTTON EVENT LISTENER
+elements.addEventButton.addEventListener("click", () => {
+  const selectedDay = parseInt(elements.leftSideDayElement.textContent);
+  const eventText = elements.addEventField.value.trim();
+
+  if (eventText !== "") {
+    addEvent(selectedDay, eventText); // Call the addEvent function with the selected day and event text
+    elements.addEventField.value = ""; // Clear the input field after adding the event
+  }
+});
 
 // Previous month click event
 getElement(".calendar-change-year-slider-prev").addEventListener("click", () => {
@@ -200,17 +195,6 @@ getElement(".calendar-change-year-slider-next").addEventListener("click", () => 
     currentYear += 1;
   }
   updateCalendar(currentYear, currentMonth);
-});
-
-// Add event button click event
-elements.addEventButton.addEventListener("click", () => {
-  const selectedDay = parseInt(elements.leftSideDayElement.textContent);
-  const eventText = elements.addEventField.value.trim();
-  if (eventText !== "") {
-    // Logic to add event for selected day
-    // Example:
-    // addEvent(selectedDay, eventText);
-  }
 });
 
 // Other event listeners and functions can be similarly modularized for cleaner code structure.
