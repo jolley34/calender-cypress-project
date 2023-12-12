@@ -19,13 +19,29 @@ function updateCalendar(year, month) {
     firstDayOfMonth = 6;
   }
 
+  // Update the current month span element
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const currentMonthElement = document.querySelector(".calendar-current-month");
+  currentMonthElement.textContent = monthNames[month];
+
   daysElement.innerHTML = "";
-  monthListElement.innerHTML = "";
   weekElement.innerHTML = "";
 
   updateCurrentYearElement(year);
   updateLeftSideWithCurrentDate(year, month);
-  createMonthList(month);
   createWeekdayList();
   addPreviousMonthDays(year, month, firstDayOfMonth);
   addCurrentMonthDays(year, month, daysInMonth);
@@ -51,40 +67,15 @@ function updateLeftSideWithCurrentDate(year, month) {
   }
 }
 
-function createMonthList(month) {
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  monthNames.forEach((monthName, index) => {
-    const li = document.createElement("li");
-    li.textContent = monthName.substring(0, 3);
-    if (index === month) {
-      li.classList.add("active");
-    }
-    monthListElement.appendChild(li);
-  });
-}
-
 function createWeekdayList() {
   const weekdays = [
-    "Sunday",
     "Monday",
     "Tuesday",
     "Wednesday",
     "Thursday",
     "Friday",
     "Saturday",
+    "Sunday",
   ];
   weekdays.forEach((weekday) => {
     const li = document.createElement("li");
@@ -304,28 +295,27 @@ let currentMonth = currentDate.getMonth();
 // Initial calendar update
 updateCalendar(currentYear, currentMonth);
 
-// Event listeners for changing months and years
-monthListElement.addEventListener("click", (event) => {
-  if (event.target.tagName === "LI") {
-    const monthIndex = Array.from(event.target.parentNode.children).indexOf(
-      event.target
-    );
-    currentMonth = monthIndex;
-    updateCalendar(currentYear, currentMonth);
-  }
-});
+
 
 document
   .querySelector(".calendar-change-year-slider-prev")
   .addEventListener("click", () => {
-    currentYear -= 1;
+    currentMonth -= 1;
+    if (currentMonth < 0) {
+      currentMonth = 11; // Wrap around to December when going to previous of January
+      currentYear -= 1; // Decrement year when going to previous month of January
+    }
     updateCalendar(currentYear, currentMonth);
   });
 
 document
   .querySelector(".calendar-change-year-slider-next")
   .addEventListener("click", () => {
-    currentYear += 1;
+    currentMonth += 1;
+    if (currentMonth > 11) {
+      currentMonth = 0; // Wrap around to January when going to next of December
+      currentYear += 1; // Increment year when going to next month of December
+    }
     updateCalendar(currentYear, currentMonth);
   });
 
@@ -593,7 +583,7 @@ thisMonthNavItem.addEventListener("click", () => {
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth();
-
+  
   updateCalendar(currentYear, currentMonth); // Uppdatera kalendern till aktuell månad
   showEventsForCurrentMonth(); // Visa händelser för aktuell månad
   highlightCurrentMonth(); // Markera dagarna i månaden
