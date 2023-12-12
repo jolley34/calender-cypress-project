@@ -360,6 +360,7 @@ addEventButton.addEventListener("click", () => {
 
     addEventField.value = ""; // Clear input field after adding the event
   }
+  updateTodoCountForDays();
 });
 
 // Function to set today's date and highlight events for today
@@ -612,16 +613,18 @@ function updateTodoCountForDays() {
   const dayElements = daysElement.querySelectorAll("li");
   dayElements.forEach((dayElement) => {
     const day = parseInt(dayElement.textContent);
-
+    
+    
     if (!dayElement.classList.contains("inactive")) {
       const todoCount = storedEvents[day] ? storedEvents[day].length : 0;
-
+      
       // Check if there are todos for the day
       if (todoCount > 0) {
         const todoCountSpan = document.createElement("span");
         todoCountSpan.classList.add("todo-count");
         todoCountSpan.textContent = todoCount;
         todoCountSpan.className = "todo-count";
+        todoCountSpan.setAttribute("data-cy", "calendar-cell-todos");
         dayElement.appendChild(todoCountSpan);
       }
     }
