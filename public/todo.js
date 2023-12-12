@@ -20,20 +20,43 @@ function addEvent(selectedDay, eventText) {
   showEventsForSelectedDay(year, month, selectedDay);
 }
 
-// Function to display events for the selected day
+// Function to delete an event
+function deleteEvent(selectedYear, selectedMonth, selectedDay, eventText) {
+  const selectedDate = `${selectedYear}-${selectedMonth + 1}-${selectedDay}`;
+  todos = todos.filter(
+    (event) => !(event.date === selectedDate && event.text === eventText)
+  );
+  saveEvent();
+  showEventsForSelectedDay(selectedYear, selectedMonth, selectedDay);
+}
+
+// Function to handle the delete event click
+function handleDeleteClick(selectedYear, selectedMonth, selectedDay, eventText) {
+  return function() {
+    deleteEvent(selectedYear, selectedMonth, selectedDay, eventText);
+  };
+}
+
+// Update the showEventsForSelectedDay function to include delete buttons
 function showEventsForSelectedDay(selectedYear, selectedMonth, selectedDay) {
   const selectedDate = `${selectedYear}-${selectedMonth + 1}-${selectedDay}`;
   const eventsForSelectedDay = todos.filter(
     (event) => event.date === selectedDate
   );
 
-  // Clear previous event list
-  elements.eventsList.innerHTML = "";
+  elements.eventsList.innerHTML = ""; // Clear previous event list
 
-  // Display events for the selected day in the events list
   eventsForSelectedDay.forEach((event) => {
     const eventItem = document.createElement("li");
     eventItem.textContent = event.text;
+
+    const deleteButton = document.createElement("i");
+    deleteButton.setAttribute("data-cy", "delete-todo-button");
+    deleteButton.classList.add("fa-solid", "fa-xmark", "cursor-pointer", "delete-event");
+    
+    deleteButton.addEventListener("click", handleDeleteClick(selectedYear, selectedMonth, selectedDay, event.text));
+
+    eventItem.appendChild(deleteButton);
     elements.eventsList.appendChild(eventItem);
   });
 }

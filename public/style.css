@@ -11,6 +11,10 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+header {
+  display: flex;
+  flex-wrap: wrap;
+}
 
 .nav-item:hover {
   color: #777;
