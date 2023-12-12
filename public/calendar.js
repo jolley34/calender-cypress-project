@@ -78,13 +78,13 @@ function createMonthList(month) {
 
 function createWeekdayList() {
   const weekdays = [
-    "Sunday",
     "Monday",
     "Tuesday",
     "Wednesday",
     "Thursday",
     "Friday",
     "Saturday",
+    "Sunday",
   ];
   weekdays.forEach((weekday) => {
     const li = document.createElement("li");
@@ -94,7 +94,7 @@ function createWeekdayList() {
   
   });
 }
-
+//Previous months days showing in "empty" cells
 function addPreviousMonthDays(year, month, firstDayOfMonth) {
   for (let i = 0; i < firstDayOfMonth; i++) {
     const li = document.createElement("li");
@@ -116,6 +116,7 @@ function addCurrentMonthDays(year, month, daysInMonth) {
     
     const dateSpan = document.createElement("span");
     dateSpan.setAttribute("data-cy", "calendar-cell-date")
+    dateSpan.className = "date-in-calendar-cells"
     dateSpan.textContent = i;
     li.append(dateSpan)
 
@@ -197,27 +198,26 @@ function showEventsForSelectedDay(storageKey, day) {
       eventSpan.textContent = eventText;
       eventItem.appendChild(eventSpan);
 
-
+      
       // Delete Event Icon
       const deleteIcon = document.createElement("i");
+      deleteIcon.setAttribute("data-cy", "delete-todo-button");
       deleteIcon.classList.add(
         "fa-solid",
         "fa-xmark",
         "cursor-pointer",
         "delete-event"
-
         
-
-      );
-      deleteIcon.addEventListener("click", () => {
-        deleteEvent(storageKey, day, eventText);
-        showEventsForSelectedDay(storageKey, day);
-
-        //deleteIcon.setAttribute("data-cy", "delete-todo-button");
-      
-      });
-      eventItem.appendChild(deleteIcon);
-
+        );
+        deleteIcon.addEventListener("click", () => {
+          deleteEvent(storageKey, day, eventText);
+          showEventsForSelectedDay(storageKey, day);
+          
+          
+          
+        });
+        eventItem.appendChild(deleteIcon);
+        
       // Edit Event Icon
       const editIcon = document.createElement("i");
       editIcon.classList.add(
@@ -239,8 +239,9 @@ function showEventsForSelectedDay(storageKey, day) {
 // DeleteEvent-funktion för att ta bort ett event
 function deleteEvent(storageKey, day, eventText) {
   const storedEvents = JSON.parse(localStorage.getItem(storageKey)) || {};
+ 
+          
   
-
   if (storedEvents[day]) {
     const updatedEventsForDay = storedEvents[day].filter(
       (event) => event !== eventText
@@ -433,11 +434,10 @@ function showEventsForCurrentWeek() {
           "cursor-pointer",
           "delete-event"
           );
-
+          
         deleteIcon.addEventListener("click", () => {
           deleteEvent(storedKey, day, eventText);
           showEventsForCurrentWeek();
-          
         });
         
         eventItem.appendChild(deleteIcon);
@@ -599,3 +599,34 @@ thisMonthNavItem.addEventListener("click", () => {
   highlightCurrentMonth(); // Markera dagarna i månaden
 });
 
+
+// function for counting the todos in the day cells
+function updateTodoCountForDays() {
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+
+  const storedKey = `${currentYear}-${currentMonth + 1}`;
+  const storedEvents = JSON.parse(localStorage.getItem(storedKey)) || {};
+
+  const dayElements = daysElement.querySelectorAll("li");
+  dayElements.forEach((dayElement) => {
+    const day = parseInt(dayElement.textContent);
+
+    if (!dayElement.classList.contains("inactive")) {
+      const todoCount = storedEvents[day] ? storedEvents[day].length : 0;
+
+      // Check if there are todos for the day
+      if (todoCount > 0) {
+        const todoCountSpan = document.createElement("span");
+        todoCountSpan.classList.add("todo-count");
+        todoCountSpan.textContent = todoCount;
+        todoCountSpan.className = "todo-count";
+        dayElement.appendChild(todoCountSpan);
+      }
+    }
+  });
+}
+
+// Call the function to update todo count on page load
+updateTodoCountForDays();
