@@ -81,7 +81,9 @@ function createWeekdayList() {
   });
 }
 
+
 // Add previous month days
+
 function addPreviousMonthDays(year, month, firstDayOfMonth) {
   const daysElement = elements.daysElement;
   for (let i = 0; i < firstDayOfMonth; i++) {
@@ -103,7 +105,10 @@ function addCurrentMonthDays(year, month, daysInMonth) {
     daysElement.appendChild(li);
 
     const dateSpan = document.createElement("span");
+
     dateSpan.setAttribute("data-cy", "calendar-cell-date");
+
+
     dateSpan.textContent = i;
     li.append(dateSpan);
 
@@ -139,7 +144,9 @@ function handleDayClick(year, month, day, li) {
     dayElement.classList.remove('selected-day');
   });
 
+
   li.classList.add('selected-day');
+
 
   updateLeftSideWithSelectedDate(selectedDay);
   // Show events for selected day
@@ -193,8 +200,8 @@ elements.addEventButton.addEventListener("click", () => {
     // Handle invalid date selection
     alert("Please select a valid date.");
   }
+  updateTodoCountForDays();
 });
-
 
 // Previous month click event
 getElement(".calendar-change-year-slider-prev").addEventListener("click", () => {
@@ -202,6 +209,7 @@ getElement(".calendar-change-year-slider-prev").addEventListener("click", () => 
   if (currentMonth < 0) {
     currentMonth = 11;
     currentYear -= 1;
+
   }
   updateCalendar(currentYear, currentMonth);
 });
@@ -215,7 +223,6 @@ getElement(".calendar-change-year-slider-next").addEventListener("click", () => 
   }
   updateCalendar(currentYear, currentMonth);
 });
-
 
 // Initialize calendar
 const currentDate = new Date();
