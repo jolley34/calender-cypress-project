@@ -46,6 +46,13 @@ function showEventsForSelectedDay(selectedYear, selectedMonth, selectedDay) {
 
   elements.eventsList.innerHTML = ""; // Clear previous event list
 
+  const eventCount = eventsForSelectedDay.length; // Count the number of events
+  
+  const eventCountElement = document.createElement("span");
+  eventCountElement.setAttribute("data-cy", "calendar-cell-todos");
+  eventCountElement.textContent = `Number of events: ${eventCount}`;
+  elements.eventsList.appendChild(eventCountElement); // Display the event count
+
   eventsForSelectedDay.forEach((event) => {
     const eventItem = document.createElement("li");
     eventItem.textContent = event.text;
@@ -60,6 +67,7 @@ function showEventsForSelectedDay(selectedYear, selectedMonth, selectedDay) {
     elements.eventsList.appendChild(eventItem);
   });
 }
+
 
 
 window.addEventListener('load', () => {

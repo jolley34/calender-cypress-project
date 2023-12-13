@@ -217,8 +217,6 @@ getElement(".calendar-change-year-slider-next").addEventListener("click", () => 
 });
 
 
-// Other event listeners and functions can be similarly modularized for cleaner code structure.
-
 // Initialize calendar
 const currentDate = new Date();
 let currentYear = currentDate.getFullYear();
