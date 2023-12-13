@@ -98,6 +98,17 @@ header {
   color: #777;
 }
 
+.todo-count {
+  z-index: 100;
+  position: absolute;
+  top: 4px;
+  right: 20px;
+  color: #fff; /* Choose your preferred text color */
+  border-radius: 50%;
+  padding: 4px;
+  font-size: 12px;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }

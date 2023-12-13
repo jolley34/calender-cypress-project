@@ -16,6 +16,8 @@ function addEvent(selectedDay, selectedMonth, selectedYear, eventText) {
   // Save updated events to localStorage (assuming you have this functionality)
   saveEvent();
 
+  updateTodoCountForDays();
+
   // Update event list to reflect the added event for the selected day
   showEventsForSelectedDay(selectedYear, selectedMonth, selectedDay);
 }
@@ -28,6 +30,8 @@ function deleteEvent(selectedYear, selectedMonth, selectedDay, eventText) {
   );
   saveEvent();
   showEventsForSelectedDay(selectedYear, selectedMonth, selectedDay);
+  updateTodoCountForDays();
+  
 }
 
 // Function to handle the delete event click
@@ -46,13 +50,6 @@ function showEventsForSelectedDay(selectedYear, selectedMonth, selectedDay) {
 
   elements.eventsList.innerHTML = ""; // Clear previous event list
 
-  const eventCount = eventsForSelectedDay.length; // Count the number of events
-  
-  const eventCountElement = document.createElement("span");
-  eventCountElement.setAttribute("data-cy", "calendar-cell-todos");
-  eventCountElement.textContent = `Number of events: ${eventCount}`;
-  elements.eventsList.appendChild(eventCountElement); // Display the event count
-
   eventsForSelectedDay.forEach((event) => {
     const eventItem = document.createElement("li");
     eventItem.textContent = event.text;
@@ -68,10 +65,50 @@ function showEventsForSelectedDay(selectedYear, selectedMonth, selectedDay) {
   });
 }
 
+function updateTodoCountForDays() {
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear(); // Get the current year
+  const currentMonth = currentDate.getMonth(); // Get the current month
+
+  const storedEvents = JSON.parse(localStorage.getItem('todos')) || [];
+
+  const dayElements = elements.daysElement.querySelectorAll("li");
+  dayElements.forEach((dayElement) => {
+    const day = parseInt(dayElement.firstChild.textContent);
+
+    if (!dayElement.classList.contains("inactive")) {
+      const todos = storedEvents.filter(event => {
+        const eventDate = new Date(event.date);
+        return (
+          eventDate.getFullYear() === currentYear &&
+          eventDate.getMonth() === currentMonth &&
+          eventDate.getDate() === day
+        );
+      });
+      
+      const todoCountSpan = dayElement.querySelector(".todo-count");
+      if (todos.length > 0) {
+        if (todoCountSpan) {
+          todoCountSpan.textContent = todos.length;
+        } else {
+          const todoCountSpan = document.createElement("span");
+          todoCountSpan.classList.add("todo-count");
+          todoCountSpan.textContent = todos.length;
+          todoCountSpan.setAttribute("data-cy", "calendar-cell-todos");
+          dayElement.appendChild(todoCountSpan);
+        }
+      } else if (todoCountSpan) {
+        todoCountSpan.remove();
+      }
+    }
+  });
+}
+
 
 
 window.addEventListener('load', () => {
   loadEvent();
   showEventsForSelectedDay()
+  updateTodoCountForDays();
 });
 
