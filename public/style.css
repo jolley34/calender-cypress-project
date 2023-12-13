@@ -282,6 +282,7 @@ input{
 .calendar .calendar-days li.selected-day:after {
   color: white;
   background: #4d4d4d8e;
+  
 }
 .calendar .calendar-days li.event-day:before {
   content: " ";
@@ -291,10 +292,12 @@ input{
   top: 7px;
   right: 7px;
   background: #c7c7c7;
+  
 }
 .calendar .calendar-days li.active-day:after {
   color: white;
   background: #999999;
+
 }
 .calendar .calendar-week {
   margin-bottom: 30px;
@@ -336,6 +339,15 @@ li {
 
 .calendar .calendar-days li {
   flex: 1 0 calc(100% / 7);
+}
+.todo-count {
+  position: absolute;
+  top: 7px;
+  right: 5px;
+  color: #fff; /* Choose your preferred text color */
+  border-radius: 50%;
+  padding: 4px;
+  font-size: 12px;
 }
 
 @media (max-width: 1492px) {
@@ -394,6 +406,7 @@ li {
     width: 100%;
   }
 }
+
 
 
 
