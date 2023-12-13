@@ -169,14 +169,31 @@ function displayCurrentDay(element, year, month, day) {
 
 // ADD EVENT BUTTON EVENT LISTENER
 elements.addEventButton.addEventListener("click", () => {
-  const selectedDay = parseInt(elements.leftSideDayElement.textContent);
-  const eventText = elements.addEventField.value.trim();
+  const selectedDateInput = getElement("[data-cy='todo-date-input']");
+  const selectedDate = new Date(selectedDateInput.value);
 
-  if (eventText !== "") {
-    addEvent(selectedDay, eventText); // Call the addEvent function with the selected day and event text
-    elements.addEventField.value = ""; // Clear the input field after adding the event
+  // Check if a valid date is selected
+  if (!isNaN(selectedDate.getTime())) {
+    const eventText = elements.addEventField.value.trim();
+
+    if (eventText !== "") {
+      const selectedDay = selectedDate.getDate();
+      const selectedMonth = selectedDate.getMonth();
+      const selectedYear = selectedDate.getFullYear();
+
+      // Call the addEvent function with the selected day, month, year, and event text
+      addEvent(selectedDay, selectedMonth, selectedYear, eventText);
+      elements.addEventField.value = ""; // Clear the input field after adding the event
+    } else {
+      // Handle empty event text
+      alert("Please enter event details.");
+    }
+  } else {
+    // Handle invalid date selection
+    alert("Please select a valid date.");
   }
 });
+
 
 // Previous month click event
 getElement(".calendar-change-year-slider-prev").addEventListener("click", () => {
