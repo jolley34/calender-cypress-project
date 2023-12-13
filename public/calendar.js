@@ -168,6 +168,7 @@ function displayCurrentDay(element, year, month, day) {
 // EVENT LISTERNERS
 
 // ADD EVENT BUTTON EVENT LISTENER
+// Assuming you have an event listener for the "Add Event" button already in place
 elements.addEventButton.addEventListener("click", () => {
   const selectedDateInput = getElement("[data-cy='todo-date-input']");
   const selectedDate = new Date(selectedDateInput.value);

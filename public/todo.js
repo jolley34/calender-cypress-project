@@ -1,23 +1,23 @@
-function addEvent(selectedDay, eventText) {
+function addEvent(selectedDay, selectedMonth, selectedYear, eventText) {
   const year = currentYear;
   const month = currentMonth;
 
-  // Load existing todos from localStorage
+  // Load existing events from localStorage (assuming you have this functionality)
   loadEvent();
 
   const newEvent = {
-    date: `${year}-${month + 1}-${selectedDay}`,
-    text: eventText,
+    date: `${selectedYear}-${selectedMonth + 1}-${selectedDay}`, // Using selected date here
+    text: eventText, // Using eventText entered by the user
   };
 
-  // Add the new event to the todos array
+  // Add the new event to the events array
   todos.push(newEvent);
 
-  // Save updated todos to localStorage
+  // Save updated events to localStorage (assuming you have this functionality)
   saveEvent();
 
   // Update event list to reflect the added event for the selected day
-  showEventsForSelectedDay(year, month, selectedDay);
+  showEventsForSelectedDay(selectedYear, selectedMonth, selectedDay);
 }
 
 // Function to delete an event
@@ -60,6 +60,7 @@ function showEventsForSelectedDay(selectedYear, selectedMonth, selectedDay) {
     elements.eventsList.appendChild(eventItem);
   });
 }
+
 
 window.addEventListener('load', () => {
   loadEvent();
