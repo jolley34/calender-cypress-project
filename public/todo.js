@@ -52,18 +52,22 @@ function showEventsForSelectedDay(selectedYear, selectedMonth, selectedDay) {
 
   eventsForSelectedDay.forEach((event) => {
     const eventItem = document.createElement("li");
-    eventItem.textContent = event.text;
+
+    // Append date and event text together
+    const eventContent = `${event.date}: ${event.text}`;
+    eventItem.textContent = eventContent;
 
     const deleteButton = document.createElement("i");
     deleteButton.setAttribute("data-cy", "delete-todo-button");
     deleteButton.classList.add("fa-solid", "fa-xmark", "cursor-pointer", "delete-event");
-    
+
     deleteButton.addEventListener("click", handleDeleteClick(selectedYear, selectedMonth, selectedDay, event.text));
 
     eventItem.appendChild(deleteButton);
     elements.eventsList.appendChild(eventItem);
   });
 }
+
 
 function updateTodoCountForDays() {
   const currentDate = new Date();
