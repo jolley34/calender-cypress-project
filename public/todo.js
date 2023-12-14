@@ -61,8 +61,59 @@ function showEventsForSelectedDay(selectedYear, selectedMonth, selectedDay) {
     deleteButton.setAttribute("data-cy", "delete-todo-button");
     deleteButton.classList.add("fa-solid", "fa-xmark", "cursor-pointer", "delete-event");
 
+    const editButton = document.createElement("i");
+    editButton.setAttribute("data-cy", "edit-todo-button");
+    editButton.classList.add("fa-solid", "fa-pencil", "cursor-pointer", "edit-event");
+
     deleteButton.addEventListener("click", handleDeleteClick(selectedYear, selectedMonth, selectedDay, event.text));
 
+    editButton.addEventListener("click", () => {
+      // Clear previous content
+      elements.addEventField.value = event.text; // Clear the event field input
+      
+      // Create input fields for editing
+      const editEventInput = document.createElement('input');
+      editEventInput.value = event.text;
+      editEventInput.setAttribute('data-cy', 'edit-todo-input');
+      
+      const editDateInput = document.createElement('input');
+      editDateInput.value = event.date;
+      editDateInput.setAttribute('type', 'date');
+      editDateInput.setAttribute('data-cy', 'edit-todo-date-input');
+      
+      const saveButton = document.createElement('button');
+      saveButton.textContent = 'Save';
+      saveButton.setAttribute('data-cy', 'save-todo-button');
+      
+      // Replace event text with input fields
+      eventItem.textContent = '';
+      eventItem.appendChild(editEventInput);
+      eventItem.appendChild(editDateInput);
+      eventItem.appendChild(saveButton);
+      
+      // Save button click logic
+      saveButton.addEventListener('click', () => {
+        const newEventText = editEventInput.value;
+        const newEventDate = editDateInput.value;
+        
+        // Update the event object with new information
+        event.text = newEventText;
+        event.date = newEventDate;
+        
+        // Replace input fields with updated event content
+        const updatedContent = `${event.date}: ${event.text}`;
+        eventItem.textContent = updatedContent;
+        eventItem.appendChild(editButton);
+        eventItem.appendChild(deleteButton);
+        
+        // Perform actions to save the updated event and update UI as required
+        saveEvent(); // Save the updated events to localStorage
+        updateTodoCountForDays(); // Update the todo count for the days
+        showEventsForSelectedDay(selectedYear, selectedMonth, selectedDay); // Refresh the events list
+      });
+    });
+
+    eventItem.appendChild(editButton);
     eventItem.appendChild(deleteButton);
     elements.eventsList.appendChild(eventItem);
   });
