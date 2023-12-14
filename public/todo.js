@@ -70,7 +70,8 @@ function showEventsForSelectedDay(selectedYear, selectedMonth, selectedDay) {
     editButton.addEventListener("click", () => {
       // Clear previous content
       elements.addEventField.value = event.text; // Clear the event field input
-      
+      elements.addEventButton.setAttribute('data-cy', ' ');
+      elements.selectedDateInput.setAttribute('data-cy', ' ');
       // Create input fields for editing
       const editEventInput = document.createElement('input');
       editEventInput.value = event.text;
@@ -80,6 +81,7 @@ function showEventsForSelectedDay(selectedYear, selectedMonth, selectedDay) {
       editDateInput.value = event.date;
       editDateInput.setAttribute('type', 'date');
       editDateInput.setAttribute('data-cy', 'edit-todo-date-input');
+      editDateInput.setAttribute('data-cy', 'todo-date-input');
       
       const saveButton = document.createElement('button');
       saveButton.textContent = 'Save';
