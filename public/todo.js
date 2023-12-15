@@ -20,6 +20,7 @@ function addEvent(selectedDay, selectedMonth, selectedYear, eventText) {
 
   // Update event list to reflect the added event for the selected day
   showEventsForSelectedDay(selectedYear, selectedMonth, selectedDay);
+  
 }
 
 // Function to delete an event
@@ -68,19 +69,20 @@ function showEventsForSelectedDay(selectedYear, selectedMonth, selectedDay) {
     deleteButton.addEventListener("click", handleDeleteClick(selectedYear, selectedMonth, selectedDay, event.text));
 
     editButton.addEventListener("click", () => {
+
       // Clear previous content
-      elements.addEventField.value = event.text; // Clear the event field input
+      elements.addEventField.value = event.text; 
       elements.addEventButton.setAttribute('data-cy', ' ');
-      elements.selectedDateInput.setAttribute('data-cy', ' ');
+      elements.datePicker.setAttribute('data-cy', ' ');
+      elements.addEventField.setAttribute('data-cy', ' ');
       // Create input fields for editing
       const editEventInput = document.createElement('input');
       editEventInput.value = event.text;
-      editEventInput.setAttribute('data-cy', 'edit-todo-input');
+      editEventInput.setAttribute('data-cy', 'todo-title-input');
       
       const editDateInput = document.createElement('input');
       editDateInput.value = event.date;
-      editDateInput.setAttribute('type', 'date');
-      editDateInput.setAttribute('data-cy', 'edit-todo-date-input');
+      editDateInput.setAttribute('type', 'date');;
       editDateInput.setAttribute('data-cy', 'todo-date-input');
       
       const saveButton = document.createElement('button');
@@ -93,12 +95,12 @@ function showEventsForSelectedDay(selectedYear, selectedMonth, selectedDay) {
       eventItem.appendChild(editDateInput);
       eventItem.appendChild(saveButton);
       
-      // Save button click logic
+      // Save button click 
       saveButton.addEventListener('click', () => {
         const newEventText = editEventInput.value;
         const newEventDate = editDateInput.value;
         
-        // Update the event object with new information
+        // Update the event object with new desc
         event.text = newEventText;
         event.date = newEventDate;
         
@@ -108,7 +110,6 @@ function showEventsForSelectedDay(selectedYear, selectedMonth, selectedDay) {
         eventItem.appendChild(editButton);
         eventItem.appendChild(deleteButton);
         
-        // Perform actions to save the updated event and update UI as required
         saveEvent(); // Save the updated events to localStorage
         updateTodoCountForDays(); // Update the todo count for the days
         showEventsForSelectedDay(selectedYear, selectedMonth, selectedDay); // Refresh the events list
@@ -120,7 +121,6 @@ function showEventsForSelectedDay(selectedYear, selectedMonth, selectedDay) {
     elements.eventsList.appendChild(eventItem);
   });
 }
-
 
 function updateTodoCountForDays() {
   const currentDate = new Date();
@@ -160,7 +160,6 @@ function updateTodoCountForDays() {
     }
   });
 }
-
 
 
 window.addEventListener('load', () => {

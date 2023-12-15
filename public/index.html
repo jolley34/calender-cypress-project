@@ -49,7 +49,6 @@
               <div class="event-title">Planned events:</div>
               <ul class="current-day-events-list" data-cy="todo-list">
                 <li>
-
                   <i
                     class="fa-solid fa-pencil cursor-pointer edit-event"
                     style="display: none"
@@ -58,13 +57,17 @@
                     class="fa-solid fa-xmark cursor-pointer delete-event"
                     style="display: none"
                   ></i>
-
                 </li>
               </ul>
             </div>
             <span class="event-count"></span>
             <div class="add-date">
-              <input type="date" data-cy="todo-date-input" id="todo-date-input">
+              <input
+                type="date"
+                data-cy="todo-date-input"
+                id="todo-date-input"
+                class="todo-date-input"
+              />
             </div>
             <div class="add-event-day">
               <input

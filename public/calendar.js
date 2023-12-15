@@ -11,6 +11,7 @@ const elements = {
   addEventField: getElement(".add-event-day-field"),
   addEventButton: getElement(".add-event-day-field-btn"),
   eventsList: getElement(".current-day-events-list"),
+  datePicker: getElement(".todo-date-input"),
 };
 
 // Function to get the number of days in a month
@@ -177,8 +178,8 @@ function displayCurrentDay(element, year, month, day) {
 // ADD EVENT BUTTON EVENT LISTENER
 // Assuming you have an event listener for the "Add Event" button already in place
 elements.addEventButton.addEventListener("click", () => {
-  const selectedDateInput = getElement("[data-cy='todo-date-input']");
-  const selectedDate = new Date(selectedDateInput.value);
+  
+  const selectedDate = new Date(elements.datePicker.value);
 
   // Check if a valid date is selected
   if (!isNaN(selectedDate.getTime())) {
