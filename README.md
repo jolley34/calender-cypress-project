@@ -1,4 +1,4 @@
-# Cypress Kalender.
+# Cypress Calender
 
 ## Installation
 Run npm install
