@@ -1,8 +1,10 @@
 {
   "name": "@plugga-tech/todo-calendar-js",
   "description": "En inlämningsuppgift där de studerande bygger en kalenderapplikation i javascript.",
-  
   "scripts": {
     "dev": "cd public && vite --open"
+  },
+  "dependencies": {
+    "vite": "^5.0.11"
   }
 }

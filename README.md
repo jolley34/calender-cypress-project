@@ -1,7 +1,7 @@
 # Cypress Kalender.
 
 ## Installation
-Npm install
+Run npm install
 
 ## Installation
-Skolprojekt, grupparbete om att skapa en responsiv och interaktiv kalender, den skulle även gå igenom alla cypress tester.
+School project, group work on creating a responsive and interactive calendar, which would also cover all Cypress tests.
