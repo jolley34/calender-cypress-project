@@ -145,8 +145,8 @@ animateWeather();
   });
 
   async function fetchWeather() {
-/*     const apiKey = "04cefb85cb8ecd887ad8e9600dddc436"; */
-    const location = "gothenburg";
+    const apiKey = "04cefb85cb8ecd887ad8e9600dddc436";
+    const location = "berlin";
 
     try {
       const response = await fetch(
